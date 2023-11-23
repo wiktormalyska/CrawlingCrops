@@ -7,6 +7,18 @@ public abstract class Entity extends Cell {
 
     final String name;
     private int health;
+    private int maxHealth;
+
+    private int damage;
+    private int defence;
+
+    public int getDefence(){
+        return defence;
+    }
+
+    public void setDefence(int defence){
+        this.defence = defence;
+    }
 
     public int getHealth() {
         return health;
@@ -26,7 +38,7 @@ public abstract class Entity extends Cell {
         super.setX(x);
     }
 
-    private int maxHealth;
+
 
     public int getDamage() {
         return damage;
@@ -36,14 +48,13 @@ public abstract class Entity extends Cell {
         this.damage = damage;
     }
 
-    private int damage;
 
-
-    public Entity(int x, int y, String display, String name, int maxHealth, int damage) {
+    public Entity(int x, int y, String display, String name, int maxHealth, int damage, int defence) {
         super(x, y, display);
         this.name = name;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.damage = damage;
+        this.defence = defence;
     }
 }

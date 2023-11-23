@@ -61,6 +61,11 @@ public class ScreenHandler {
             System.out.print("\n");
         }
     }
+    public static void clearDisplay(){
+        for (int i = 0;i<100;i++){
+            System.out.print("\n");
+        }
+    }
 
     private void clearScreen(){
         for (int i = 0;i<screenCells.length-1;i++){

@@ -26,6 +26,7 @@ public class KeyPressHandler{
                 int key = input.charAt(0);
                 keyPressed(key);
             }
+            //screenHandler.clearDisplay();
             System.out.println("You died!");
             //TODO: show death screen
         } catch (IOException e) {

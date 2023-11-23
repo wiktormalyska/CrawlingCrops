@@ -7,8 +7,8 @@ import org.lostarmy.items.laying.LayingItem;
 import org.lostarmy.utils.HandlersManager;
 
 public class Enemy extends Entity {
-    public Enemy(int x, int y, String display, String name, int maxHealth, Item item, int damage) {
-        super(x, y, display, name, maxHealth, damage);
+    public Enemy(int x, int y, String display, String name, int maxHealth, Item item, int damage, int defence) {
+        super(x, y, display, name, maxHealth, damage, defence);
         this.item= item;
     }
     private Item item;

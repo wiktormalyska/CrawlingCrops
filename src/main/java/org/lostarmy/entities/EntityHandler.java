@@ -30,9 +30,10 @@ public class EntityHandler {
         return player;
     }
     public EntityHandler() {
-        player = new Player(6, 6, ConsoleColors.PURPLE_BOLD_BRIGHT+"@", "Player", 10, 10);
-        Enemy enemy = new Enemy(5, 5, "@", "Enemy", 10, Item.getAsItem(ItemsList.MEAT), 5);
-        Enemy enemy2 = new Enemy(8, 8, "@", "Enemy", 1, Item.getAsItem(ItemsList.MEAT), 50);
+        player = new Player(7, 7, ConsoleColors.PURPLE_BOLD_BRIGHT+"@", "Player", 10, 10, 5);
+        Enemy enemy = new Enemy(5, 5, "@", "Enemy", 10, Item.getAsItem(ItemsList.MEAT), 5, 5);
+        Enemy enemy2 = new Enemy(5, 6, "@", "Enemy", 1, Item.getAsItem(ItemsList.MEAT), 10, 1);
+
         entities.add(player);
         entities.add(enemy);
         enemies.add(enemy);

@@ -8,10 +8,10 @@ public class PlayerAttackEnemyEvent {
     public static void attackEnemy(Player player, Enemy entity){
         int playerDamage = player.getDamage();
         int enemyHealth = entity.getHealth();
-        entity.setHealth(enemyHealth-playerDamage);
-        int enemyDamage = entity.getDamage();
-        int playerHealth = player.getHealth();
-        player.setHealth(playerHealth-enemyDamage);
+        int enemyDefence = entity.getDefence();
+        int takenDamage = playerDamage-enemyDefence;
+        if (takenDamage<0) takenDamage=0;
+        entity.setHealth(enemyHealth-takenDamage);
         if(entity.isDead()){
             HandlersManager.entityHandler.deleteEntity(entity);
         }
