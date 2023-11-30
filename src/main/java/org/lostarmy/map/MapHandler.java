@@ -9,6 +9,7 @@ import org.lostarmy.map.CellTypes.BorderType;
 import org.lostarmy.map.CellTypes.Cell;
 import org.lostarmy.map.CellTypes.Grass;
 import org.lostarmy.screen.ScreenHandler;
+import org.lostarmy.utils.HandlersManager;
 
 import java.util.List;
 

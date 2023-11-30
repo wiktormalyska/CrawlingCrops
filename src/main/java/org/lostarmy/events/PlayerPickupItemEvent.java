@@ -3,6 +3,7 @@ package org.lostarmy.events;
 import org.lostarmy.entities.EntityTypes.Player.Player;
 import org.lostarmy.items.laying.LayingItem;
 import org.lostarmy.items.laying.LayingItemHandler;
+import org.lostarmy.utils.HandlersManager;
 
 public class PlayerPickupItemEvent extends Event {
     public PlayerPickupItemEvent() {

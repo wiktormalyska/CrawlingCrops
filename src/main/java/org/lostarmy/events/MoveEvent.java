@@ -15,61 +15,61 @@ public class MoveEvent extends Event {
             case UP -> {
                 if (checkIfPlayerAttackEnemy(player.getX()-1, player.getY())) {
                     PlayerAttackEnemyEvent.attackEnemy(player, HandlersManager.entityHandler.getEnemyAt(player.getX()-1, player.getY()));
+                    if (checkIfEnemyAttackPlayer(player)){
+                        List<Enemy> enemies = getEnemiesAttackingPlayer(player);
+                        for (Enemy enemy : enemies) {
+                            EnemyAttackPlayerEvent.attackPlayer(player, enemy);
+                        }
+                    }
                 } else {
                     int x = player.getX();
                     int y = player.getY();
                     player.moveTo(x - 1, y);
-                    if (checkIfEnemyAttackPlayer(player)) {
-                        List<Enemy> enemies = getEnemiesAttackingPlayer(player);
-                        for (Enemy enemy : enemies){
-                            EnemyAttackPlayerEvent.attackPlayer(player, enemy);
-                        }
-                    }
                 }
             }
             case DOWN -> {
                 if (checkIfPlayerAttackEnemy(player.getX()+1, player.getY())) {
                     PlayerAttackEnemyEvent.attackEnemy(player, HandlersManager.entityHandler.getEnemyAt(player.getX()+1, player.getY()));
+                    if (checkIfEnemyAttackPlayer(player)){
+                        List<Enemy> enemies = getEnemiesAttackingPlayer(player);
+                        for (Enemy enemy : enemies) {
+                            EnemyAttackPlayerEvent.attackPlayer(player, enemy);
+                        }
+                    }
                 } else {
                     int x = player.getX();
                     int y = player.getY();
                     player.moveTo(x + 1, y);
-                    if (checkIfEnemyAttackPlayer(player)) {
-                        List<Enemy> enemies = getEnemiesAttackingPlayer(player);
-                        for (Enemy enemy : enemies){
-                            EnemyAttackPlayerEvent.attackPlayer(player, enemy);
-                        }
-                    }
                 }
             }
             case LEFT -> {
                 if (checkIfPlayerAttackEnemy(player.getX(), player.getY()-1)) {
                     PlayerAttackEnemyEvent.attackEnemy(player, HandlersManager.entityHandler.getEnemyAt(player.getX(), player.getY()-1));
-                } else {
-                    int x = player.getX();
-                    int y = player.getY();
-                    player.moveTo(x , y-1);
-                    if (checkIfEnemyAttackPlayer(player)) {
+                    if (checkIfEnemyAttackPlayer(player)){
                         List<Enemy> enemies = getEnemiesAttackingPlayer(player);
-                        for (Enemy enemy : enemies){
+                        for (Enemy enemy : enemies) {
                             EnemyAttackPlayerEvent.attackPlayer(player, enemy);
                         }
                     }
+                } else {
+                    int x = player.getX();
+                    int y = player.getY();
+                    player.moveTo(x, y - 1);
                 }
             }
             case RIGHT -> {
                 if (checkIfPlayerAttackEnemy(player.getX(), player.getY()+1)) {
                     PlayerAttackEnemyEvent.attackEnemy(player, HandlersManager.entityHandler.getEnemyAt(player.getX(), player.getY()+1));
-                } else {
-                    int x = player.getX();
-                    int y = player.getY();
-                    player.moveTo(x, y+1);
-                    if (checkIfEnemyAttackPlayer(player)) {
+                    if (checkIfEnemyAttackPlayer(player)){
                         List<Enemy> enemies = getEnemiesAttackingPlayer(player);
-                        for (Enemy enemy : enemies){
+                        for (Enemy enemy : enemies) {
                             EnemyAttackPlayerEvent.attackPlayer(player, enemy);
                         }
                     }
+                } else {
+                    int x = player.getX();
+                    int y = player.getY();
+                    player.moveTo(x, y + 1);
                 }
             }
         }

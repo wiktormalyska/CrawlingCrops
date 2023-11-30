@@ -63,4 +63,8 @@ Przygotuj się na niezapomnianą przygodę w Zagubionej Armii, gdzie każdy krok
 - Czerwony - gracz na pewno zginie
 - Pomarańczowy - gracz zginie jeśli oberwie atakiem krytycznym
 - Zielony - gracz na pewno pokona przeciwnika
-- Walka odbywa się w ciągu 1 tury
+- W walce jako 1 bierze udział gracz
+- Jeżeli użytkownik walki nie wygrał, to przeciwnik atakuje
+- Jeżeli wróg zginie, dropi z niego wcześniej ustalony przedmiot
+- Jeżeli gracz zginie, to gra się kończy
+- Każda postać ma swoją szansę na zadanie krytyka który zadaje 1.5x obrażeń

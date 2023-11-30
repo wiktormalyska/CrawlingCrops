@@ -6,8 +6,8 @@ import org.lostarmy.items.laying.LayingItem;
 
 public class Player extends Entity {
 
-    public Player(int x, int y, String display, String name, int maxHealth, int damage, int defence) {
-        super(x, y, display, name, maxHealth, damage, defence);
+    public Player(int x, int y, String display, String name, int baseHealth, int damage, int defence, double critChance) {
+        super(x, y, display, name, baseHealth, damage, defence, critChance);
     }
 
     public Inventory getInventory() {

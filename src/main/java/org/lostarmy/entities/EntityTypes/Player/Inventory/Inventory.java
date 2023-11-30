@@ -9,12 +9,10 @@ public class Inventory {
     public List<InventoryItem> items = new ArrayList<>();
     public String inventoryDisplay = "---Inventory---";
     public void addItem(LayingItem item){
-        if (items.contains(item)){
-            for (InventoryItem inventoryItem:items){
-                if (inventoryItem.equals(item)){
-                    inventoryItem.amount++;
-                    return;
-                }
+        for (InventoryItem inventoryItem:items){
+            if (inventoryItem.item.name.equals(item.item.name)){
+                inventoryItem.amount++;
+                return;
             }
         }
         InventoryItem inventoryItem = new InventoryItem(item.item);

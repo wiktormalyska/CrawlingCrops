@@ -12,6 +12,16 @@ public abstract class Entity extends Cell {
     private int damage;
     private int defence;
 
+    private double critChance;
+
+    public double getCritChance() {
+    	return critChance;
+    }
+
+    public void setCritChance(double critChance) {
+    	this.critChance = critChance;
+    }
+
     public int getDefence(){
         return defence;
     }
@@ -49,12 +59,13 @@ public abstract class Entity extends Cell {
     }
 
 
-    public Entity(int x, int y, String display, String name, int maxHealth, int damage, int defence) {
+    public Entity(int x, int y, String display, String name, int maxHealth, int damage, int defence, double critChance) {
         super(x, y, display);
         this.name = name;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.damage = damage;
         this.defence = defence;
+        this.critChance = critChance;
     }
 }

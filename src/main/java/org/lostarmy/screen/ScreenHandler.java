@@ -42,6 +42,7 @@ public class ScreenHandler {
         //1 line
         setText("Health: "+entityHandler.getPlayer().getMaxHealth()+"/"+entityHandler.getPlayer().getHealth(), 1, mapY+2+2);
         setText("Damage: "+entityHandler.getPlayer().getDamage(),2, mapY+2+2);
+        setText("Defence: "+entityHandler.getPlayer().getDefence(),3, mapY+2+2);
         //2 line
         printInventory(1, mapY+2+20);
 
