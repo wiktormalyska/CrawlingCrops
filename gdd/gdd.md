@@ -22,7 +22,7 @@ Bądź odważny, bo w tych ciemnych głębinach czeka na Ciebie Twoja przeznacze
 
 ## Staw Czoła Przerażającym Istotom 🐺🧟‍♂️
 
-Przygotuj się na spotkanie różnorodnych istot, takich jak (wypisane trudnościowy):
+Przygotuj się na spotkanie różnorodnych istot, takich jak (wypisane trudnościowo):
 - Szczury
 - Wilki
 - Dziki
