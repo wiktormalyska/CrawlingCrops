@@ -22,16 +22,12 @@ Bądź odważny, bo w tych ciemnych głębinach czeka na Ciebie Twoja przeznacze
 
 ## Staw Czoła Przerażającym Istotom 🐺🧟‍♂️
 
-Przygotuj się na spotkanie różnorodnych istot, takich jak:
-- Gluty
-- Pająki
-- Robale
+Przygotuj się na spotkanie różnorodnych istot, takich jak (wypisane trudnościowo):
+- Szczury
 - Wilki
 - Dziki
-- Szkielety
-- Szczury
-- Postacie ludzio podobne (inna rasa niż gracz)
-- oraz zmutowane wersje wcześniej wymienionych przeciwników
+- Niedźwiedzie
+- Hydra niedźwiedzie(3 głowy niedźwiedź)
 
 ## Opanuj Sztukę Rzemiosła 🛠️🔥
 
@@ -63,8 +59,4 @@ Przygotuj się na niezapomnianą przygodę w Zagubionej Armii, gdzie każdy krok
 - Czerwony - gracz na pewno zginie
 - Pomarańczowy - gracz zginie jeśli oberwie atakiem krytycznym
 - Zielony - gracz na pewno pokona przeciwnika
-- W walce jako 1 bierze udział gracz
-- Jeżeli użytkownik walki nie wygrał, to przeciwnik atakuje
-- Jeżeli wróg zginie, dropi z niego wcześniej ustalony przedmiot
-- Jeżeli gracz zginie, to gra się kończy
-- Każda postać ma swoją szansę na zadanie krytyka który zadaje 1.5x obrażeń
+- Walka odbywa się w ciągu 1 tury
