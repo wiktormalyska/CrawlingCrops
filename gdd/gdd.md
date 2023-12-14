@@ -22,13 +22,12 @@ Bądź odważny, bo w tych ciemnych głębinach czeka na Ciebie Twoja przeznacze
 
 ## Staw Czoła Przerażającym Istotom 🐺🧟‍♂️
 
-Przygotuj się na spotkanie różnorodnych istot, takich jak:
+Przygotuj się na spotkanie różnorodnych istot, takich jak (wypisane trudnościowy):
 - Szczury
 - Wilki
 - Dziki
 - Niedźwiedzie
 - Hydra niedźwiedzie(3 głowy niedźwiedź)
-- oraz zmutowane wersje wcześniej wymienionych przeciwników
 
 ## Opanuj Sztukę Rzemiosła 🛠️🔥
 
