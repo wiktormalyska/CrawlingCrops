@@ -58,6 +58,9 @@ public abstract class Entity extends Cell {
         this.damage = damage;
     }
 
+    public String getName() {
+        return name;
+    }
 
     public Entity(int x, int y, String display, String name, int maxHealth, int damage, int defence, double critChance) {
         super(x, y, display);

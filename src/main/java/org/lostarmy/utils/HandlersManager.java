@@ -6,10 +6,13 @@ import org.lostarmy.map.MapHandler;
 import org.lostarmy.screen.ScreenHandler;
 
 public class HandlersManager {
-    public HandlersManager(ScreenHandler screenHandler, int mapX, int mapY){
+    public static void init(ScreenHandler screenHandler, int mapX, int mapY){
         mapHandler = new MapHandler(mapX,mapY, screenHandler);
         entityHandler = new EntityHandler();
+        entityHandler.generateEnemies();
+
         layingItemHandler = new LayingItemHandler();
+        //start timer
         keyPressHandler = new KeyPressHandler(screenHandler);
     }
     public static MapHandler mapHandler;

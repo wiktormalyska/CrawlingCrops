@@ -10,7 +10,8 @@ public class Main {
         int screenX = mapX+3;
         int screenY = 100;
         ScreenHandler screenHandler = new ScreenHandler(screenX, screenY, mapX, mapY);
-        HandlersManager handlersManager = new HandlersManager(screenHandler,mapX,mapY);
+        HandlersManager.init(screenHandler, mapX, mapY);
+
 
 
         //KeyPressHandler keyPressHandler = new KeyPressHandler();
