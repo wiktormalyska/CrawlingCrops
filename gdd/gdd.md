@@ -23,14 +23,11 @@ Bądź odważny, bo w tych ciemnych głębinach czeka na Ciebie Twoja przeznacze
 ## Staw Czoła Przerażającym Istotom 🐺🧟‍♂️
 
 Przygotuj się na spotkanie różnorodnych istot, takich jak:
-- Gluty
-- Pająki
-- Robale
+- Szczury
 - Wilki
 - Dziki
-- Szkielety
-- Szczury
-- Postacie ludzio podobne (inna rasa niż gracz)
+- Niedźwiedzie
+- Hydra niedźwiedzie(3 głowy niedźwiedź)
 - oraz zmutowane wersje wcześniej wymienionych przeciwników
 
 ## Opanuj Sztukę Rzemiosła 🛠️🔥
