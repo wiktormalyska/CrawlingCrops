@@ -73,7 +73,6 @@ public class Inventory {
             case HEAD:
                 if (head != null){
                     unwearItem(head, entity);
-                    worn = false;
                     break;
                 }
                 head = new WearableItem(item.item);
@@ -82,7 +81,6 @@ public class Inventory {
             case CHEST:
                 if (chest != null){
                     unwearItem(chest, entity);
-                    worn = false;
                     break;
                 }
                 chest = new WearableItem(item.item);
@@ -91,7 +89,6 @@ public class Inventory {
             case LEGS:
                 if (legs != null){
                     unwearItem(legs, entity);
-                    worn = false;
                     break;
                 }
                 legs = new WearableItem(item.item);
@@ -100,7 +97,6 @@ public class Inventory {
             case BOOTS:
                 if (boots != null){
                     unwearItem(boots, entity);
-                    worn = false;
                     break;
                 }
                 boots = new WearableItem(item.item);
@@ -109,7 +105,6 @@ public class Inventory {
             case WEAPON:
                 if (weapon != null){
                     unwearItem(weapon, entity);
-                    worn = false;
                     break;
                 }
                 weapon = new WearableItem(item.item);
