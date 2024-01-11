@@ -2,6 +2,7 @@ package org.lostarmy.utils;
 
 import org.lostarmy.events.MoveEvent;
 import org.lostarmy.events.MoveTypes;
+import org.lostarmy.screen.InventoryScreen;
 import org.lostarmy.screen.ScreenHandler;
 
 import java.io.BufferedReader;
@@ -17,6 +18,8 @@ public class KeyPressHandler{
         this.screenHandler = screenHandler;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            //main game loop
+            updateMap(screenHandler);
             while (true) {
                 if(entityHandler.getPlayer().isDead()){
                     break;
@@ -50,6 +53,12 @@ public class KeyPressHandler{
             }
             case 'd','D' -> {
                 MoveEvent.movePlayer(MoveTypes.RIGHT, entityHandler.getPlayer());
+                updateMap(screenHandler);
+            }
+            case 'f','F' -> {
+                System.out.println("You opened inventory");
+                InventoryScreen inventoryScreen = new InventoryScreen(screenHandler.screenCells.length, screenHandler.screenCells[0].length, screenHandler.mapX, screenHandler.mapY);
+                inventoryScreen.openInventory();
                 updateMap(screenHandler);
             }
         }

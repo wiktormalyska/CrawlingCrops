@@ -14,6 +14,25 @@ public class Inventory {
     public WearableItem weapon;
     public List<InventoryItem> backpack = new ArrayList<>();
     public String inventoryDisplay = "---Inventory---";
+    public List<WearableItem> getWornItems(){
+        List<WearableItem> items = new ArrayList<>();
+        if (head != null){
+            items.add(head);
+        }
+        if (chest != null){
+            items.add(chest);
+        }
+        if (legs != null){
+            items.add(legs);
+        }
+        if (boots != null){
+            items.add(boots);
+        }
+        if (weapon != null){
+            items.add(weapon);
+        }
+        return items;
+    }
     public void addItem(LayingItem item){
         for (InventoryItem inventoryItem:backpack){
             if (inventoryItem.item.name.equals(item.item.name)){
@@ -22,6 +41,9 @@ public class Inventory {
             }
         }
         InventoryItem inventoryItem = new InventoryItem(item.item);
+        if (item.item.isWearable){
+            inventoryItem = new WearableItem(item.item);
+        }
         inventoryItem.amount++;
         backpack.add(inventoryItem);
     }
@@ -46,8 +68,64 @@ public class Inventory {
     public void removeItem(LayingItem item){
         backpack.remove(item);
     }
-    public void wearItem(WearableItem item, Entity entity){
-        //TODO: dodać sloty
+    public void wearItem(InventoryItem item, Entity entity){
+        boolean worn = false;
+        if (!(item instanceof WearableItem)){
+            return;
+        }
+        switch (item.item.slot){
+            case HEAD:
+                if (head != null){
+                    unwearItem(head, entity);
+                    worn = false;
+                    break;
+                }
+                head = new WearableItem(item.item);
+                worn = true;
+                break;
+            case CHEST:
+                if (chest != null){
+                    unwearItem(chest, entity);
+                    worn = false;
+                    break;
+                }
+                chest = new WearableItem(item.item);
+                worn = true;
+                break;
+            case LEGS:
+                if (legs != null){
+                    unwearItem(legs, entity);
+                    worn = false;
+                    break;
+                }
+                legs = new WearableItem(item.item);
+                worn = true;
+                break;
+            case BOOTS:
+                if (boots != null){
+                    unwearItem(boots, entity);
+                    worn = false;
+                    break;
+                }
+                boots = new WearableItem(item.item);
+                worn = true;
+                break;
+            case WEAPON:
+                if (weapon != null){
+                    unwearItem(weapon, entity);
+                    worn = false;
+                    break;
+                }
+                weapon = new WearableItem(item.item);
+                worn = true;
+                break;
+        }
+        applyWornItemsEffects(entity);
+        if (worn){
+            System.out.println("Equipped: "+item.item.name+" to "+item.item.slot.name()+" slot");
+        } else {
+            System.out.println("Unequipped: "+item.item.name+" from "+item.item.slot.name()+" slot");
+        }
     }
     public void unwearItem(WearableItem item, Entity entity){
         if (item == head){
