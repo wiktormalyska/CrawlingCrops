@@ -2,7 +2,6 @@ package org.lostarmy.screen;
 
 import org.lostarmy.entities.EntityTypes.Player.Inventory.InventoryItem;
 import org.lostarmy.utils.ConsoleColors;
-import org.lostarmy.utils.HandlersManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,8 +23,9 @@ public class InventoryScreen extends ScreenHandler{
         }
     }
     private void getInventoryDisplay(){
+        clearDisplay();
         clearScreen();
-        setText("---Inventory---", 0, 0);
+        setText("--Inventory--", 0, 0);
         for (int i = 0; i< entityHandler.getPlayer().getInventory().backpack.size(); i++){
             InventoryItem item = entityHandler.getPlayer().getInventory().backpack.get(i);
             setText(item.item.name+" x"+item.amount, i+1, 1);
@@ -35,13 +35,13 @@ public class InventoryScreen extends ScreenHandler{
     }
     private boolean readInput(){
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String input = null;
+        String input;
         try {
             input = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (input.length() == 0) return true;
+        if (input.isEmpty()) return true;
         int key = input.charAt(0);
         switch (key){
             case 'w','W' -> {
@@ -68,6 +68,7 @@ public class InventoryScreen extends ScreenHandler{
                 entityHandler.getPlayer().getInventory().backpack.remove(item);
             }
             case 'f','F' -> {
+                clearDisplay();
                 System.out.println("You closed inventory");
                 return false;
             }
@@ -91,7 +92,7 @@ public class InventoryScreen extends ScreenHandler{
 
     @Override
     protected void printControls(int x, int y){
-        setText("Controls:", x, y);
+        setText("--Controls--", x, y);
         setText("W - previous item", x+1, y);
         setText("S - next item", x+2, y);
         setText("E - equip item", x+3, y);

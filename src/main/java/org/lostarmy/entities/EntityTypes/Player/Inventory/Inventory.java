@@ -13,7 +13,7 @@ public class Inventory {
     public WearableItem boots;
     public WearableItem weapon;
     public List<InventoryItem> backpack = new ArrayList<>();
-    public String inventoryDisplay = "---Inventory---";
+    public String inventoryDisplay = "--Equipped--";
     public List<WearableItem> getWornItems(){
         List<WearableItem> items = new ArrayList<>();
         if (head != null){
@@ -63,10 +63,6 @@ public class Inventory {
         if (weapon != null){
             weapon.applyEffects(entity);
         }
-    }
-
-    public void removeItem(LayingItem item){
-        backpack.remove(item);
     }
     public void wearItem(InventoryItem item, Entity entity){
         boolean worn = false;

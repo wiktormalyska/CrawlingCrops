@@ -41,9 +41,10 @@ public class ScreenHandler {
     public void print(){
         clearScreen();
         //1 line
-        setText("Health: "+entityHandler.getPlayer().getMaxHealth()+"/"+entityHandler.getPlayer().getHealth(), 1, mapY+2+2);
-        setText("Damage: "+entityHandler.getPlayer().getDamage(),2, mapY+2+2);
-        setText("Defence: "+entityHandler.getPlayer().getDefence(),3, mapY+2+2);
+        setText("--Stats--", 1, mapY+2+2);
+        setText("Health: "+entityHandler.getPlayer().getMaxHealth()+"/"+entityHandler.getPlayer().getHealth(), 2, mapY+2+2);
+        setText("Damage: "+entityHandler.getPlayer().getDamage(),3, mapY+2+2);
+        setText("Defence: "+entityHandler.getPlayer().getDefence(),4, mapY+2+2);
         //2 line
         printInventory(1, mapY+2+20);
         printControls(1, mapY+2+50);
@@ -78,7 +79,7 @@ public class ScreenHandler {
         }
     }
     protected void printControls(int x, int y){
-        setText("Controls:", x, y);
+        setText("--Controls--", x, y);
         setText("WASD - move", x+1, y);
         setText("F - open inventory", x+2, y);
     }
