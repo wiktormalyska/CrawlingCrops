@@ -30,7 +30,7 @@ public class InventoryScreen extends ScreenHandler{
             InventoryItem item = entityHandler.getPlayer().getInventory().backpack.get(i);
             setText(item.item.name+" x"+item.amount, i+1, 1);
         }
-        printControls(1, mapY+2+50);
+        printControls(mapY+2+50);
         print();
     }
     private boolean readInput(){
@@ -91,12 +91,12 @@ public class InventoryScreen extends ScreenHandler{
     }
 
     @Override
-    protected void printControls(int x, int y){
-        setText("--Controls--", x, y);
-        setText("W - previous item", x+1, y);
-        setText("S - next item", x+2, y);
-        setText("E - equip item", x+3, y);
-        setText("Q - drop item", x+4, y);
-        setText("F - close inventory", x+5, y);
+    protected void printControls(int y){
+        setText("--Controls--", 1, y);
+        setText("W - previous item", 2, y);
+        setText("S - next item", 3, y);
+        setText("E - equip item", 4, y);
+        setText("Q - drop item", 5, y);
+        setText("F - close inventory", 6, y);
     }
 }

@@ -46,8 +46,8 @@ public class ScreenHandler {
         setText("Damage: "+entityHandler.getPlayer().getDamage(),3, mapY+2+2);
         setText("Defence: "+entityHandler.getPlayer().getDefence(),4, mapY+2+2);
         //2 line
-        printInventory(1, mapY+2+20);
-        printControls(1, mapY+2+50);
+        printInventory(mapY+2+20);
+        printControls(mapY+2+50);
 
         //clearScreen();
         mapHandler.generateMap();
@@ -78,22 +78,22 @@ public class ScreenHandler {
             }
         }
     }
-    protected void printControls(int x, int y){
-        setText("--Controls--", x, y);
-        setText("WASD - move", x+1, y);
-        setText("F - open inventory", x+2, y);
+    protected void printControls(int y){
+        setText("--Controls--", 1, y);
+        setText("WASD - move", 2, y);
+        setText("F - open inventory", 3, y);
     }
-    private void printInventory(int x, int y){
+    private void printInventory(int y){
         Player player = entityHandler.getPlayer();
         Inventory inventory = player.getInventory();
         List<WearableItem> items = player.getInventory().getWornItems();
-        setText(inventory.inventoryDisplay, x, y);
+        setText(inventory.inventoryDisplay, 1, y);
         for (int i = 0;i<items.size();i++){
             if (items.get(i) == null){
                 continue;
             }
             InventoryItem invItem = items.get(i);
-            setText(invItem.item.name, x+i+1, y);
+            setText(invItem.item.name, 2+i, y);
         }
     }
 }
