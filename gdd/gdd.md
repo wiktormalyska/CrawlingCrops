@@ -60,3 +60,10 @@ Przygotuj się na niezapomnianą przygodę w Zagubionej Armii, gdzie każdy krok
 - Pomarańczowy - gracz zginie jeśli oberwie atakiem krytycznym
 - Zielony - gracz na pewno pokona przeciwnika
 - Walka odbywa się w ciągu 1 tury
+
+## System ekwipunku:
+- Ekwipunek podczas ruchu gracza jest podglądem na założone przedmioty.
+- Po kliknięciu przycisku F odpala się Inventory Manager
+- W nim możemy zakładać przemioty, zdejmować, usuwać
+- Po prawej stronie ekranu można zobaczyć sterowanie
+- Założenie przedmiotu jest natychmiastowe i efekty dodają się do statystyk gracza jak i usuwają przy ściągnięciu
