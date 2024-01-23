@@ -102,9 +102,7 @@ public class MoveEvent extends Event {
         Enemy enemy2 = HandlersManager.entityHandler.getEnemyAt(player.getX(),player.getY()+1);
         Enemy enemy3 = HandlersManager.entityHandler.getEnemyAt(player.getX()-1,player.getY());
         Enemy enemy4 = HandlersManager.entityHandler.getEnemyAt(player.getX()+1,player.getY());
-        if (enemy1 != null || enemy2 != null || enemy3!=null || enemy4!=null)
-            return true;
-        return false;
+        return enemy1 != null || enemy2 != null || enemy3 != null || enemy4 != null;
     }
 
     private static List<Enemy> getEnemiesAttackingPlayer(Player player){

@@ -1,24 +1,22 @@
-package org.lostarmy.entities.EntityTypes.Player.Inventory;
+package org.lostarmy.items;
 
 import org.lostarmy.entities.EntityTypes.Entity;
-import org.lostarmy.items.Item;
+import org.lostarmy.entities.EntityTypes.Player.Inventory.Slot;
 
-public class WearableItem extends InventoryItem{
+public class Armor extends Item{
     public int health=0;
     public int damage=0;
     public int defence=0;
     public double critChance =0;
-    public Slot slot;
-
-    public WearableItem(Item item) {
-        super(item);
-        this.slot = item.slot;
-        this.damage = item.damage;
-        this.defence = item.defence;
-        this.health = item.health;
-        this.critChance = item.critChance;
+    public final Slot slot;
+    public Armor(String name, String display, int health, int damage, int defence, double critChance, Slot slot) {
+        super(name, display);
+        this.health = health;
+        this.damage = damage;
+        this.defence = defence;
+        this.critChance = critChance;
+        this.slot=slot;
     }
-
     public void applyEffects(Entity entity) {
         entity.setHealth(entity.getHealth()+health);
         entity.setDamage(entity.getDamage()+damage);

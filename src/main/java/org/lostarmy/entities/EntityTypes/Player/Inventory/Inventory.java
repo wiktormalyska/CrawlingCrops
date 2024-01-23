@@ -1,21 +1,23 @@
 package org.lostarmy.entities.EntityTypes.Player.Inventory;
 
 import org.lostarmy.entities.EntityTypes.Entity;
+import org.lostarmy.items.Armor;
+import org.lostarmy.items.Item;
 import org.lostarmy.items.laying.LayingItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory {
-    public WearableItem head;
-    public WearableItem chest;
-    public WearableItem legs;
-    public WearableItem boots;
-    public WearableItem weapon;
-    public List<InventoryItem> backpack = new ArrayList<>();
-    public String inventoryDisplay = "--Equipped--";
-    public List<WearableItem> getWornItems(){
-        List<WearableItem> items = new ArrayList<>();
+    public Armor head;
+    public Armor chest;
+    public Armor legs;
+    public Armor boots;
+    public Armor weapon;
+    public final List<InventoryItem> backpack = new ArrayList<>();
+    public final String inventoryDisplay = "--Equipped--";
+    public List<Armor> getWornItems(){
+        List<Armor> items = new ArrayList<>();
         if (head != null){
             items.add(head);
         }
@@ -33,17 +35,15 @@ public class Inventory {
         }
         return items;
     }
-    public void addItem(LayingItem item){
+    public void addItem(LayingItem layingItem){
+        Item item = layingItem.item;
         for (InventoryItem inventoryItem:backpack){
-            if (inventoryItem.item.name.equals(item.item.name)){
+            if (inventoryItem.item.name.equals(item.name)){
                 inventoryItem.amount++;
                 return;
             }
         }
-        InventoryItem inventoryItem = new InventoryItem(item.item);
-        if (item.item.isWearable){
-            inventoryItem = new WearableItem(item.item);
-        }
+        InventoryItem inventoryItem = new InventoryItem(item);
         inventoryItem.amount++;
         backpack.add(inventoryItem);
     }
@@ -64,18 +64,15 @@ public class Inventory {
             weapon.applyEffects(entity);
         }
     }
-    public void wearItem(InventoryItem item, Entity entity){
+    public void wearItem(Armor item, Entity entity){
         boolean worn = false;
-        if (!(item instanceof WearableItem)){
-            return;
-        }
-        switch (item.item.slot){
+        switch (item.slot){
             case HEAD:
                 if (head != null){
                     unwearItem(head, entity);
                     break;
                 }
-                head = new WearableItem(item.item);
+                head = item;
                 worn = true;
                 break;
             case CHEST:
@@ -83,7 +80,7 @@ public class Inventory {
                     unwearItem(chest, entity);
                     break;
                 }
-                chest = new WearableItem(item.item);
+                chest = item;
                 worn = true;
                 break;
             case LEGS:
@@ -91,7 +88,7 @@ public class Inventory {
                     unwearItem(legs, entity);
                     break;
                 }
-                legs = new WearableItem(item.item);
+                legs = item;
                 worn = true;
                 break;
             case BOOTS:
@@ -99,7 +96,7 @@ public class Inventory {
                     unwearItem(boots, entity);
                     break;
                 }
-                boots = new WearableItem(item.item);
+                boots = item;
                 worn = true;
                 break;
             case WEAPON:
@@ -107,18 +104,18 @@ public class Inventory {
                     unwearItem(weapon, entity);
                     break;
                 }
-                weapon = new WearableItem(item.item);
+                weapon = item;
                 worn = true;
                 break;
         }
         applyWornItemsEffects(entity);
         if (worn){
-            System.out.println("Equipped: "+item.item.name+" to "+item.item.slot.name()+" slot");
+            System.out.println("Equipped: "+item.name+" to "+item.slot.name()+" slot");
         } else {
-            System.out.println("Unequipped: "+item.item.name+" from "+item.item.slot.name()+" slot");
+            System.out.println("Unequipped: "+item.name+" from "+item.slot.name()+" slot");
         }
     }
-    public void unwearItem(WearableItem item, Entity entity){
+    public void unwearItem(Armor item, Entity entity){
         if (item == head){
             head.removeEffects(entity);
             head = null;

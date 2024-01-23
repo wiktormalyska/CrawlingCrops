@@ -7,7 +7,7 @@ public abstract class Entity extends Cell {
 
     final String name;
     private int health;
-    private int maxHealth;
+    private final int maxHealth;
 
     private int damage;
     private int defence;

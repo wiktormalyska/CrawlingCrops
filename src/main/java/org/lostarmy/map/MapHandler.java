@@ -14,9 +14,9 @@ import org.lostarmy.utils.HandlersManager;
 import java.util.List;
 
 public class MapHandler {
-    private Cell[][] map;
+    private final Cell[][] map;
     public static int mapSizeX, mapSizeY;
-    private ScreenHandler screenHandler;
+    private final ScreenHandler screenHandler;
     public MapHandler(int sizeX, int sizeY, ScreenHandler screenHandler){
         this.screenHandler = screenHandler;
         mapSizeX=sizeX;

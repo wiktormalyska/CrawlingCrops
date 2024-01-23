@@ -13,7 +13,7 @@ import static org.lostarmy.utils.HandlersManager.entityHandler;
 import static org.lostarmy.utils.HandlersManager.mapHandler;
 
 public class KeyPressHandler{
-    private ScreenHandler screenHandler;
+    private final ScreenHandler screenHandler;
     public KeyPressHandler(ScreenHandler screenHandler){
         this.screenHandler = screenHandler;
         try {

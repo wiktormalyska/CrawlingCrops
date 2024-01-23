@@ -21,7 +21,7 @@ public class EntityHandler {
         EnemyType.BEAR.createInstance(7,7, this);
         EnemyType.HYDRA_BEAR.createInstance(7,9, this);
     }
-    private List<Entity> entities = new ArrayList<>();
+    private final List<Entity> entities = new ArrayList<>();
 
     public List<Enemy> getEnemies() {
         return enemies;
@@ -34,8 +34,8 @@ public class EntityHandler {
         return null;
     }
 
-    private List<Enemy> enemies = new ArrayList<>();
-    private Player player;
+    private final List<Enemy> enemies = new ArrayList<>();
+    private final Player player;
     public Player getPlayer() {
         return player;
     }

@@ -23,7 +23,7 @@ public abstract class Cell {
         return display;
     }
 
-    private String display;
+    private final String display;
     public Cell(int x, int y, String display){
         this.x = x;
         this.y = y;

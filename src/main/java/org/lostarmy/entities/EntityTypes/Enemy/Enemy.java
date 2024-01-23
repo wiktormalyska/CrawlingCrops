@@ -11,7 +11,7 @@ public class Enemy extends Entity {
         super(x, y, display, name, baseHealth, damage, defence, critChance);
         this.item= item;
     }
-    private Item item;
+    private final Item item;
     public LayingItem getDropItem(int x, int y) {
         return new LayingItem(x, y, item);
     }

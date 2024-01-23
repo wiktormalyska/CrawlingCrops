@@ -18,7 +18,7 @@ public class Player extends Entity {
         return inventory;
     }
 
-    private Inventory inventory = new Inventory();
+    private final Inventory inventory = new Inventory();
 
 
     public void addItemToInventory(LayingItem item){
