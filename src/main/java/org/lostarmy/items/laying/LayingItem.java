@@ -8,5 +8,5 @@ public class LayingItem extends Cell {
         super(x, y, item.display);
         this.item = item;
     }
-    public Item item;
+    public final Item item;
 }
