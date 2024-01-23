@@ -62,24 +62,18 @@ public class ScreenHandler {
         //clearScreen();
         mapHandler.generateMap();
         mapHandler.update(entityHandler);
-        mapHandler.render();
+        renderMap();
 
-        int playerX = entityHandler.getPlayer().getX();
-        int playerY = entityHandler.getPlayer().getY();
 
-        int startX = Math.max(0, playerX - 5);
-        int endX = Math.min(screenCells.length - 1, playerX + 5);
-        int startY = Math.max(0, playerY - 5);
-        int endY = Math.min(screenCells[0].length - 1, playerY + 5);
 
         for (int i = 0; i < screenCells.length - 1; i++) {
             for (int j = 0; j < screenCells[0].length - 1; j++) {
-                if (screenCells[i][j] instanceof Enemy) {
-                    Enemy tempEnemy = entityHandler.getEnemyAt(i, j);
-                    System.out.print(tempEnemy.getEnemyHardness() + screenCells[i][j].getDisplay() + ConsoleColors.RESET);
-                } else {
+//                if (screenCells[i][j] instanceof Enemy) {
+//                    Enemy tempEnemy = entityHandler.getEnemyAt(i, j);
+//                    System.out.print(tempEnemy.getEnemyHardness() + screenCells[i][j].getDisplay() + ConsoleColors.RESET);
+//                } else {
                     System.out.print(screenCells[i][j].getDisplay() + ConsoleColors.RESET);
-                }
+//                }
             }
             System.out.print("\n");
         }
@@ -118,4 +112,23 @@ public class ScreenHandler {
             setText(items.get(i).name, 2 + i, y);
         }
     }
+public void renderMap() {
+    int playerX = entityHandler.getPlayer().getX();
+    int playerY = entityHandler.getPlayer().getY();
+
+    Cell[][] map = mapHandler.getMap();
+
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            int mapX = playerX - 5 + i;
+            int mapY = playerY - 5 + j;
+
+            if (mapX >= 0 && mapX < map.length && mapY >= 0 && mapY < map[0].length) {
+                setCell(map[mapX][mapY], i, j);
+            } else {
+                setCell(new Blank(i, j), i, j);
+            }
+        }
+    }
+}
 }

@@ -15,6 +15,11 @@ import java.util.List;
 
 public class MapHandler {
     private final Cell[][] map;
+
+    public Cell[][] getMap() {
+        return map;
+    }
+
     public static int mapSizeX, mapSizeY;
     private final ScreenHandler screenHandler;
     public MapHandler(int sizeX, int sizeY, ScreenHandler screenHandler){
@@ -73,13 +78,7 @@ public class MapHandler {
     }
 
 
-    public void render(){
-        for (int i=0;i<map.length;i++){
-            for (int j=0;j<map[0].length;j++){
-                screenHandler.setCell(map[i][j], i, j);
-            }
-        }
-    }
+
 
     private void renderEntities(EntityHandler entityHandler){
         List<Entity> entities = entityHandler.getEntities();

@@ -106,6 +106,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
                     return true;
                 }
                 useItem(item, selectedLine);
+                selectedLine = 0;
             }
             case 'q', 'Q' -> {
                 InventoryItem item = entityHandler.getPlayer().getInventory().backpack.get(selectedLine);
