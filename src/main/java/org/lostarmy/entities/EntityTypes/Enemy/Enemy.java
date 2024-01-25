@@ -15,17 +15,18 @@ public class Enemy extends Entity {
     public LayingItem getDropItem(int x, int y) {
         return new LayingItem(x, y, item);
     }
-    public String getEnemyHardness(){
-        Player player = HandlersManager.entityHandler.getPlayer();
-        if (player.getHealth()>this.getDamage() && player.getDamage()>=this.getHealth()){
-            return EnemyKillChanceDisplay.POSSIBLE.colors;
-        } else if (player.getHealth()>this.getDamage()) {
-            return EnemyKillChanceDisplay.MAYBE.colors;
-        } else if (player.getHealth()<=this.getDamage()){
-            return EnemyKillChanceDisplay.IMPOSSIBLE.colors;
-        }
-        return "";
+public String getEnemyHardness(){
+    Player player = HandlersManager.entityHandler.getPlayer();
+    int attacksNeeded = (int) Math.ceil((double) this.getHealth() / player.getDamage());
+
+    if (attacksNeeded == 1){
+        return EnemyKillChanceDisplay.POSSIBLE.colors; // Green
+    } else if (attacksNeeded == 2) {
+        return EnemyKillChanceDisplay.MAYBE.colors; // Yellow
+    } else {
+        return EnemyKillChanceDisplay.IMPOSSIBLE.colors; // Red
     }
+}
 
     public boolean isDead(){
         return this.getHealth()<=0;

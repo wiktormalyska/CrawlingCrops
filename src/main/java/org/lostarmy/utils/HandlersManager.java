@@ -15,6 +15,10 @@ public class HandlersManager {
         //start timer
         keyPressHandler = new KeyPressHandler(screenHandler);
     }
+
+    public static void initTestMap(int mapX, int mapY, ScreenHandler screenHandler){
+        mapHandler = new MapHandler(mapX,mapY, screenHandler);
+    }
     public static MapHandler mapHandler;
     public static EntityHandler entityHandler;
     public static LayingItemHandler layingItemHandler;

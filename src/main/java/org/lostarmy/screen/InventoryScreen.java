@@ -111,6 +111,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
             case 'q', 'Q' -> {
                 InventoryItem item = entityHandler.getPlayer().getInventory().backpack.get(selectedLine);
                 entityHandler.getPlayer().getInventory().backpack.remove(item);
+                selectedLine = 0;
             }
             case 'f', 'F' -> {
                 clearDisplay();

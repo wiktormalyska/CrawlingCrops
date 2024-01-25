@@ -1,9 +1,7 @@
 package org.lostarmy.screen;
 
-import org.lostarmy.Main;
 import org.lostarmy.entities.EntityTypes.Enemy.Enemy;
 import org.lostarmy.entities.EntityTypes.Player.Inventory.Inventory;
-import org.lostarmy.entities.EntityTypes.Player.Inventory.InventoryItem;
 import org.lostarmy.entities.EntityTypes.Player.Player;
 import org.lostarmy.items.Armor;
 import org.lostarmy.map.CellTypes.Blank;
@@ -60,20 +58,23 @@ public class ScreenHandler {
         printControls(mapY + 2 + 50);
 
         //clearScreen();
-        mapHandler.generateMap();
+        mapHandler.generateEmptyMap();
         mapHandler.update(entityHandler);
         renderMap();
 
-
+        int playerX = entityHandler.getPlayer().getX();
+        int playerY = entityHandler.getPlayer().getY();
 
         for (int i = 0; i < screenCells.length - 1; i++) {
             for (int j = 0; j < screenCells[0].length - 1; j++) {
-//                if (screenCells[i][j] instanceof Enemy) {
-//                    Enemy tempEnemy = entityHandler.getEnemyAt(i, j);
-//                    System.out.print(tempEnemy.getEnemyHardness() + screenCells[i][j].getDisplay() + ConsoleColors.RESET);
-//                } else {
+                int mapX = playerX - 5 + i;
+                int mapY = playerY - 5 + j;
+                if (screenCells[i][j] instanceof Enemy) {
+                    Enemy tempEnemy = entityHandler.getEnemyAt(mapX, mapY);
+                    System.out.print(tempEnemy.getEnemyHardness() + screenCells[i][j].getDisplay() + ConsoleColors.RESET);
+                } else {
                     System.out.print(screenCells[i][j].getDisplay() + ConsoleColors.RESET);
-//                }
+                }
             }
             System.out.print("\n");
         }

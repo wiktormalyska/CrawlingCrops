@@ -65,7 +65,7 @@ public class KeyPressHandler{
     }
 
     private static void updateMap(ScreenHandler screenHandler){
-        mapHandler.generateMap();
+        mapHandler.generateEmptyMap();
         mapHandler.update(entityHandler);
         screenHandler.renderMap();
         screenHandler.print();
