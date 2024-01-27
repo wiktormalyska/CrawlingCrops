@@ -6,14 +6,17 @@ import org.lostarmy.items.Item;
 import org.lostarmy.items.laying.LayingItem;
 import org.lostarmy.utils.HandlersManager;
 
+import java.util.List;
+
 public class Enemy extends Entity {
-    public Enemy(int x, int y, String display, String name, int baseHealth, Item item, int damage, int defence, double critChance) {
+    public Enemy(int x, int y, String display, String name, int baseHealth, List<Item> item, int damage, int defence, double critChance) {
         super(x, y, display, name, baseHealth, damage, defence, critChance);
         this.item= item;
     }
-    private final Item item;
+    private final List<Item> item;
     public LayingItem getDropItem(int x, int y) {
-        return new LayingItem(x, y, item);
+
+        return new LayingItem(x, y, item.get((int) (Math.random() * 2)));
     }
 public String getEnemyHardness(){
     Player player = HandlersManager.entityHandler.getPlayer();

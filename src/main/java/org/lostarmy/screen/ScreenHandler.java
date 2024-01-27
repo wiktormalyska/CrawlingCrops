@@ -24,8 +24,8 @@ public class ScreenHandler {
     }
 
     public ScreenHandler(int x, int y, int mapX, int mapY) {
-        this.mapX = mapX;
-        this.mapY = mapY;
+        this.mapX = 10;
+        this.mapY = 10;
         screenCells = new Cell[x][y];
         for (int i = 0; i < screenCells.length - 1; i++) {
             for (int j = 0; j < screenCells[0].length - 1; j++) {
@@ -47,6 +47,7 @@ public class ScreenHandler {
     }
 
     public void print() {
+        clearDisplay();
         clearScreen();
         //1 line
         setText("--Stats--", 1, mapY + 2 + 2, ConsoleColors.CYAN);
@@ -58,8 +59,8 @@ public class ScreenHandler {
         printControls(mapY + 2 + 50);
 
         //clearScreen();
-        mapHandler.generateEmptyMap();
-        mapHandler.update(entityHandler);
+        //mapHandler.generateMap();
+        mapHandler.update();
         renderMap();
 
         int playerX = entityHandler.getPlayer().getX();

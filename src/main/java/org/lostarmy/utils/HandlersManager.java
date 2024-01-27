@@ -7,7 +7,10 @@ import org.lostarmy.screen.ScreenHandler;
 
 public class HandlersManager {
     public static void init(ScreenHandler screenHandler, int mapX, int mapY){
-        mapHandler = new MapHandler(mapX,mapY, screenHandler);
+        mapHandler = new MapHandler(mapX,mapY);
+        mapHandler.nextLevel=true;
+        mapHandler.level=1;
+        mapHandler.generateMap();
         entityHandler = new EntityHandler();
         entityHandler.generateEnemies();
 
@@ -16,8 +19,10 @@ public class HandlersManager {
         keyPressHandler = new KeyPressHandler(screenHandler);
     }
 
-    public static void initTestMap(int mapX, int mapY, ScreenHandler screenHandler){
-        mapHandler = new MapHandler(mapX,mapY, screenHandler);
+    public static void initTestMap(int mapX, int mapY){
+        mapHandler = new MapHandler(mapX,mapY);
+        mapHandler.nextLevel=true;
+        mapHandler.level=1;
     }
     public static MapHandler mapHandler;
     public static EntityHandler entityHandler;
