@@ -17,28 +17,34 @@ public class EntityHandler {
 
     public void generateEnemies() {
         enemiesTypes.clear();
-        switch (HandlersManager.mapHandler.level) {
+        MapHandler mapHandler = HandlersManager.mapHandler;
+        int freeSpaces = mapHandler.getNumberOfFreeSpaces();
+        int numRats = freeSpaces / 120;
+        int numWolves = freeSpaces / 160;
+        int numBears = freeSpaces / 180;
+
+        switch (mapHandler.level) {
             case 1 -> {
-                for (int i = 0; i < Math.random() * 10 + 1; i++) {
+                for (int i = 0; i < numRats; i++) {
                     enemiesTypes.add(EnemyType.RAT);
                 }
-                for (int i = 0; i < Math.random() * 4 + 1; i++) {
+                for (int i = 0; i < numWolves; i++) {
                     enemiesTypes.add(EnemyType.WOLF);
                 }
             }
             case 2 -> {
-                for (int i = 0; i < Math.random() * 10 + 1; i++) {
+                for (int i = 0; i < numRats; i++) {
                     enemiesTypes.add(EnemyType.RAT);
                 }
-                for (int i = 0; i < Math.random() * 2 + 1; i++) {
+                for (int i = 0; i < numWolves; i++) {
                     enemiesTypes.add(EnemyType.WOLF);
                 }
-                for (int i = 0; i < Math.random() * 1 + 1; i++) {
+                for (int i = 0; i < numBears; i++) {
                     enemiesTypes.add(EnemyType.BEAR);
                 }
             }
         }
-        MapHandler mapHandler = HandlersManager.mapHandler;
+
         for (EnemyType enemyType : enemiesTypes) {
             int x = (int) (Math.random() * (MapHandler.mapSizeX - 2) + 1);
             int y = (int) (Math.random() * (MapHandler.mapSizeY - 2) + 1);
@@ -51,10 +57,12 @@ public class EntityHandler {
         }
     }
 
-    private final List<Entity> entities = new ArrayList<>();
-
     public List<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public void clearEnemies() {
+        enemies.clear();
     }
 
     public Enemy getEnemyAt(int x, int y) {
@@ -65,41 +73,31 @@ public class EntityHandler {
     }
 
     private final List<Enemy> enemies = new ArrayList<>();
-    private Player player;
+    private final Player player;
 
     public Player getPlayer() {
         return player;
     }
 
     public EntityHandler() {
-        MapHandler maph = HandlersManager.mapHandler;
-        Cell center = maph.findClosestToCenter();
-        this.player = new Player(center.getX(), center.getY(), ConsoleColors.PURPLE_BOLD_BRIGHT + "@", "Player", 100, 20, 6, 0.25);
-        entities.add(player);
-    }
-
-    public EntityHandler(boolean test) {
-        if (test) {
-            MapHandler maph = HandlersManager.mapHandler;
-            Cell center = maph.findClosestToCenter();
-            this.player = new Player(center.getX(), center.getY(), ConsoleColors.PURPLE_BOLD_BRIGHT + "@", "Player", 100, 20, 6, 0.25);
-            entities.add(player);
-        }
-    }
-
-    public List<Entity> getEntities() {
-        return entities;
+        MapHandler mapHandler = HandlersManager.mapHandler;
+        Cell center = mapHandler.findClosestFreeCell(mapHandler.getMap());
+        this.player = new Player(center.getX(), center.getY(), ConsoleColors.PURPLE_BOLD_BRIGHT + "@", "Player", 20, 10, 5, 0.25);
     }
 
     public void deleteEntity(Entity entity) {
-        entities.remove(entity);
         if (entity instanceof Enemy) {
             enemies.remove(entity);
         }
     }
 
     public void addEnemy(Enemy enemy) {
-        entities.add(enemy);
         enemies.add(enemy);
+    }
+
+    public void update() {
+        for (Enemy enemy : enemies) {
+            enemy.update();
+        }
     }
 }

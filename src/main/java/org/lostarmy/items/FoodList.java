@@ -4,7 +4,7 @@ import org.lostarmy.utils.ConsoleColors;
 
 public enum FoodList {
     MEAT("Meat", ConsoleColors.PURPLE+"8", 5),
-    ROTTEN_MEAT("Meat", ConsoleColors.GREEN+"8", 2),
+    ROTTEN_MEAT("Rotten Meat", ConsoleColors.GREEN+"8", 2),
     ;
     public final String name;
     public final String display;

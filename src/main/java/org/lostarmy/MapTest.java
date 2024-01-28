@@ -27,12 +27,14 @@ public class MapTest {
             switch (HandlersManager.mapHandler.level) {
                 case 1 -> {
                     HandlersManager.mapHandler.generateForestMap();
+                    HandlersManager.layingItemHandler.generateItems();
                 }
                 case 2 -> {
                     HandlersManager.mapHandler.generateCaveMap();
+                    HandlersManager.layingItemHandler.generateItems();
                 }
             }
-            HandlersManager.entityHandler = new EntityHandler(true);
+            HandlersManager.entityHandler = new EntityHandler();
             HandlersManager.entityHandler.generateEnemies();
             mapHandler.update();
             printMap(mapX, mapY);

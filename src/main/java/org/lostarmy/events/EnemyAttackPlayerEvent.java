@@ -14,7 +14,7 @@ public class EnemyAttackPlayerEvent extends Event{
 
         // Check for enemy's critical hit
         if (Math.random() <= enemyCritChance) {
-            enemyDamage *= 1.5;
+            enemyDamage = (int)(enemyDamage*1.5);
         }
 
         // Check for player's defence critical hit

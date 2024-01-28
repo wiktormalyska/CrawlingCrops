@@ -9,6 +9,8 @@ import org.lostarmy.items.Item;
 import org.lostarmy.items.ItemsList;
 import org.lostarmy.utils.ConsoleColors;
 
+import java.util.Objects;
+
 public class Test {
     public static void main(String[] args) {
         testEnemy(EnemyType.RAT);
@@ -50,6 +52,6 @@ public class Test {
 
         }
         double percentage = (double) tury/iloscTestow*100;
-        System.out.println(type.getEnemy(0,0).getName()+" - "+percentage+"%");
+        System.out.println(Objects.requireNonNull(type.getEnemy(0, 0)).getName()+" - "+percentage+"%");
     }
 }

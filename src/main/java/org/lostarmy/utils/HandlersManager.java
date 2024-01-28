@@ -15,6 +15,7 @@ public class HandlersManager {
         entityHandler.generateEnemies();
 
         layingItemHandler = new LayingItemHandler();
+        mapHandler.generateLayingItems();
         //start timer
         keyPressHandler = new KeyPressHandler(screenHandler);
     }
@@ -23,6 +24,7 @@ public class HandlersManager {
         mapHandler = new MapHandler(mapX,mapY);
         mapHandler.nextLevel=true;
         mapHandler.level=1;
+        layingItemHandler = new LayingItemHandler();
     }
     public static MapHandler mapHandler;
     public static EntityHandler entityHandler;

@@ -31,7 +31,7 @@ public class PlayerAttackEnemyEvent {
         if(entity.isDead()){
             LayingItem drop = entity.getDropItem(entity.getX(), entity.getY());
             HandlersManager.entityHandler.deleteEntity(entity);
-            LayingItemHandler.itemsOnGround.add(drop);
+            HandlersManager.layingItemHandler.itemsOnGround.add(drop);
         }
     }
 

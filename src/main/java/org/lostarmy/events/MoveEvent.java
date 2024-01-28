@@ -4,6 +4,7 @@ import org.lostarmy.entities.EntityTypes.Enemy.Enemy;
 import org.lostarmy.entities.EntityTypes.Player.Player;
 import org.lostarmy.items.laying.LayingItem;
 import org.lostarmy.items.laying.LayingItemHandler;
+import org.lostarmy.map.CellTypes.TrapDor;
 import org.lostarmy.utils.HandlersManager;
 
 import java.util.ArrayList;
@@ -74,10 +75,16 @@ public class MoveEvent extends Event {
             }
         }
         checkIfPlayerPickupItem(player);
+        checkIfNextLevel(player);
+    }
+    private static void checkIfNextLevel(Player player){
+        if (HandlersManager.mapHandler.getCell(player.getX(), player.getY()) instanceof TrapDor){
+            NextLevelEvent.nextLevel();
+        }
     }
     private static void checkIfPlayerPickupItem(Player player){
         LayingItem pickedUpItem = null;
-        for (LayingItem item : LayingItemHandler.itemsOnGround) {
+        for (LayingItem item : HandlersManager.layingItemHandler.itemsOnGround) {
             if (player.getX() == item.getX() && player.getY() == item.getY()) {
                 pickedUpItem = item;
             }

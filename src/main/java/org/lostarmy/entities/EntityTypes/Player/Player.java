@@ -11,7 +11,7 @@ public class Player extends Entity {
         super(x, y, display, name, baseHealth, damage, defence, critChance);
     }
     public static Player testPlayer(){
-        return new Player(0, 0, ConsoleColors.PURPLE_BOLD_BRIGHT+"@", "Player", 20, 5, 2, 0.25);
+        return new Player(0, 0, ConsoleColors.PURPLE_BOLD_BRIGHT+"@", "Player", 20, 10, 5, 0.25);
     }
 
     public Inventory getInventory() {

@@ -20,18 +20,15 @@ public class KeyPressHandler{
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             //main game loop
             updateMap(screenHandler);
-            while (true) {
-                if(entityHandler.getPlayer().isDead()){
-                    break;
-                }
+            while (!entityHandler.getPlayer().isDead()) {
                 String input = reader.readLine();
-                if (input.length() == 0) continue;
+                if (input.isEmpty()) continue;
                 int key = input.charAt(0);
                 keyPressed(key);
+                entityHandler.update();
             }
             ScreenHandler.clearDisplay();
             System.out.println("You died!");
-            //TODO: show death screen
         } catch (IOException e) {
             e.printStackTrace();
         }

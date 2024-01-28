@@ -23,7 +23,7 @@ public class ScreenHandler {
         screenCells[x][y] = cell;
     }
 
-    public ScreenHandler(int x, int y, int mapX, int mapY) {
+    public ScreenHandler(int x, int y) {
         this.mapX = 10;
         this.mapY = 10;
         screenCells = new Cell[x][y];
@@ -61,6 +61,7 @@ public class ScreenHandler {
         //clearScreen();
         //mapHandler.generateMap();
         mapHandler.update();
+        mapHandler.generateLayingItems();
         renderMap();
 
         int playerX = entityHandler.getPlayer().getX();

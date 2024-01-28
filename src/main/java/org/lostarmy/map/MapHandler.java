@@ -1,18 +1,18 @@
 package org.lostarmy.map;
 
-import org.lostarmy.entities.EntityTypes.Entity;
+import org.lostarmy.entities.EntityTypes.Enemy.Enemy;
 import org.lostarmy.entities.EntityHandler;
 import org.lostarmy.items.laying.LayingItem;
-import org.lostarmy.items.laying.LayingItemHandler;
 import org.lostarmy.map.CellTypes.*;
 import org.lostarmy.utils.ConsoleColors;
 import org.lostarmy.utils.HandlersManager;
 
 import java.util.List;
+import java.util.Random;
 
-public class MapHandler {
+public class MapHandler implements MapHandlerUtils {
     private final Cell[][] map;
-    private Cell[][] mapCopy;
+    private final Cell[][] mapCopy;
     public int level = 1;
     public boolean nextLevel = false;
 
@@ -34,35 +34,31 @@ public class MapHandler {
     }
 
     public void generateMap() {
-        //Fill Grass
         for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                map[i][j] = mapCopy[i][j];
-            }
+            System.arraycopy(mapCopy[i], 0, map[i], 0, map[0].length);
         }
         if (nextLevel) {
             switch (level) {
-                case 1 -> {
-                    generateForestMap();
-                }
-                case 2 -> {
-                    generateCaveMap();
-                }
+                case 1 -> generateForestMap();
+                case 2, 3, 4, 5 -> generateCaveMap();
             }
             nextLevel = false;
         }
-        //Fill Laying Items
-            generateLayingItems();
+        HandlersManager.layingItemHandler.generateItems();
+
     }
 
     public void generateCaveMap() {
-        //fill with wall
+        generateBorder();
+        generateTrapdor();
+
         for (int i = 1; i < map.length - 1; i++) {
             for (int j = 1; j < map[0].length - 1; j++) {
                 map[i][j] = new Wall(i, j);
             }
         }
-        //generate random points
+        //printMap();
+
         for (int i = 2; i < map.length - 2; i++) {
             for (int j = 2; j < map[0].length - 2; j++) {
                 if (Math.random() < 0.01 && (i % 3 == 0 || j % 3 == 0)) {
@@ -72,56 +68,97 @@ public class MapHandler {
                 }
             }
         }
-        //get closest to center
-        Cell center = findCenter();
+        //printMap();
+
+        Cell center = findCenter(map);
         map[center.getX()][center.getY()] = new Marker(center.getX(), center.getY(), ConsoleColors.RED);
         while (areFreePoints()) {
-            //draw line from center to closest
-            Cell closest = findClosest(center.getX(), center.getY());
+            Cell closest = findClosest(center.getX(), center.getY(), map);
             drawLine(center.getX(), center.getY(), closest.getX(), closest.getY());
             center = closest;
+            //printMap();
         }
 
-       generateBorder();
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < mapCopy[0].length; j++) {
-                mapCopy[i][j] = map[i][j];
-            }
-        }
+        generateBorder();
+        generateTrapdor();
+        saveCopy(map, mapCopy);
     }
+
+
+
+    private void generateTrapdor() {
+        Cell furthest = findFurtherstFreeCell(mapSizeX, mapSizeY, map);
+        map[furthest.getX()][furthest.getY()] = new TrapDor(furthest.getX(), furthest.getY());
+    }
+
     public void generateForestMap() {
-    // Fill the entire map with Grass cells
-    for (int i = 1; i < map.length - 1; i++) {
-        for (int j = 1; j < map[0].length - 1; j++) {
-            map[i][j] = new Grass(i, j);
+        for (int i = 1; i < map.length - 1; i++) {
+            for (int j = 1; j < map[0].length - 1; j++) {
+                map[i][j] = new Grass(i, j);
+            }
         }
+
+        for (int i = 2; i < map.length - 2; i++) {
+            for (int j = 2; j < map[0].length - 2; j++) {
+                if (Math.random() < 0.07) {
+                    if (!(map[i - 1][j] instanceof Tree || map[i + 1][j] instanceof Tree || map[i][j - 1] instanceof Tree || map[i][j + 1] instanceof Tree || map[i - 1][j - 1] instanceof Tree || map[i + 1][j + 1] instanceof Tree || map[i - 1][j + 1] instanceof Tree || map[i + 1][j - 1] instanceof Tree)) {
+                        map[i][j] = new Tree(i, j);
+                    }
+                }
+            }
+        }
+
+        generateStoneBorder();
+
+        int radius = 6;
+        drawCircle(0, 0, radius, new Wall(0, 0), map);
+        drawCircle(0, map[0].length - 1, radius, new Wall(0, map[0].length - 1), map);
+        drawCircle(map.length - 1, 0, radius, new Wall(map.length - 1, 0), map);
+        drawCircle(map.length - 1, map[map.length - 1].length - 1, radius, new Wall(map.length - 1, map[map.length - 1].length - 1), map);
+        generateBorder();
+        generateTrapdor();
+        saveCopy(map, mapCopy);
     }
 
-    // Generate random points and replace them with Tree cells
-    for (int i = 2; i < map.length - 2; i++) {
-        for (int j = 2; j < map[0].length - 2; j++) {
-            if (Math.random() < 0.1) { // 10% chance to become a tree
-                map[i][j] = new Tree(i, j);
+    private void generateStoneBorder() {
+        Random random = new Random();
+        int numberOfWaves = random.nextInt(5) + 1;
+
+        for (int wave = 0; wave < numberOfWaves; wave++) {
+            int amplitude = random.nextInt(5) + 2;
+            double frequency = random.nextDouble() * 0.2 + 0.05;
+
+            for (int i = 0; i < map.length; i++) {
+                int height = (int) (amplitude * Math.sin(frequency * i));
+                //Generate Left
+                for (int j = 0; j < height; j++) {
+                    map[j][i] = new Wall(j, i);
+                }
+                //Generate Right
+                for (int j = map.length - 1; j > map.length - 1 - height; j--) {
+                    map[j][i] = new Wall(j, i);
+                }
+            }
+
+            for (int i = 0; i < map[0].length; i++) {
+                int height = (int) (amplitude * Math.sin(frequency * i));
+                //Generate Top
+                for (int j = 0; j < height; j++) {
+                    map[i][j] = new Wall(i, j);
+                }
+                //Generate Bottom
+                for (int j = map[0].length - 1; j > map[0].length - 1 - height; j--) {
+                    map[i][j] = new Wall(i, j);
+                }
             }
         }
     }
 
-    // Fill the border of the map with Wall cells
-    generateBorder();
-
-    // Copy the generated map to mapCopy
-    for (int i = 0; i < map.length; i++) {
-        for (int j = 0; j < mapCopy[0].length; j++) {
-            mapCopy[i][j] = map[i][j];
-        }
-    }
-}
 
     private boolean areFreePoints() {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                if (map[i][j] instanceof Marker) {
-                    Marker marker = (Marker) map[i][j];
+                if (map[i][j] instanceof Marker marker) {
                     if (marker.color.equals(ConsoleColors.GREEN))
                         return true;
                 }
@@ -143,14 +180,14 @@ public class MapHandler {
         while (true) {
             // Draw line at position (x1, y1)
             map[x1][y1] = new CaveFloor(x1, y1);
-            map[x1 + 1][y1] = new CaveFloor(x1+1, y1);
-            map[x1 - 1][y1] = new CaveFloor(x1-1, y1);
-            map[x1][y1 + 1] = new CaveFloor(x1, y1+1);
-            map[x1][y1 - 1] = new CaveFloor(x1, y1-1);
-            map[x1 + 1][y1+1] = new CaveFloor(x1+1, y1+1);
-            map[x1 + 1][y1-1] = new CaveFloor(x1+1, y1-1);
-            map[x1 -1][y1+1] = new CaveFloor(x1-1, y1+1);
-            map[x1 -1][y1-1] = new CaveFloor(x1 -1, y1-1);
+            map[x1 + 1][y1] = new CaveFloor(x1 + 1, y1);
+            map[x1 - 1][y1] = new CaveFloor(x1 - 1, y1);
+            map[x1][y1 + 1] = new CaveFloor(x1, y1 + 1);
+            map[x1][y1 - 1] = new CaveFloor(x1, y1 - 1);
+            map[x1 + 1][y1 + 1] = new CaveFloor(x1 + 1, y1 + 1);
+            map[x1 + 1][y1 - 1] = new CaveFloor(x1 + 1, y1 - 1);
+            map[x1 - 1][y1 + 1] = new CaveFloor(x1 - 1, y1 + 1);
+            map[x1 - 1][y1 - 1] = new CaveFloor(x1 - 1, y1 - 1);
 
             if (x1 == x2 && y1 == y2) {
                 break;
@@ -172,60 +209,29 @@ public class MapHandler {
     private void showCenter() {
         map[mapSizeX / 2][mapSizeY / 2] = new Marker(mapSizeX / 2, mapSizeY / 2, ConsoleColors.PURPLE);
     }
-    public Cell findClosestToCenter(){
-        return findClosest(mapSizeX / 2, mapSizeY / 2);
-    }
 
-    private Cell findCenter() {
-        int x = mapSizeX / 2;
-        int y = mapSizeY / 2;
-        Cell center = map[x][y];
-        double distance = mapSizeX;
-        for (int i = 0; i < mapSizeX; i++) {
-            for (int j = 0; j < mapSizeY; j++) {
-                if (map[i][j] instanceof Marker) {
-                    Marker marker = (Marker) map[i][j];
-                    if (marker.color.equals(ConsoleColors.GREEN)) {
-                        double newDistance = calculateDistance(x, y, i, j);
-                        if (newDistance <= distance) {
-                            distance = newDistance;
-                            center = map[i][j];
-                        }
-                    }
+
+
+
+
+
+    public int getNumberOfFreeSpaces() {
+        int result = 0;
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < mapCopy[0].length; j++) {
+                if (map[i][j] instanceof CaveFloor || map[i][j] instanceof Grass) {
+                    result++;
                 }
             }
         }
-
-
-        return center;
+        return result;
     }
 
-    private Cell findClosest(int x1, int y1) {
-        Cell closest = map[x1][y1];
-        double distance = 9999;
-        for (int i = 0; i < mapSizeX; i++) {
-            for (int j = 0; j < mapSizeY; j++) {
-                if (map[i][j] instanceof Marker) {
-                    Marker marker = (Marker) map[i][j];
-                    if (marker.color.equals(ConsoleColors.GREEN)) {
-                        double newDistance = calculateDistance(x1, y1, i, j);
-                        if (newDistance <= distance) {
-                            distance = newDistance;
-                            closest = map[i][j];
-                        }
-                    }
-                }
-            }
-        }
-        return closest;
-    }
 
-    private double calculateDistance(int x1, int y1, int x2, int y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    }
 
-    private void generateLayingItems() {
-        for (LayingItem item : LayingItemHandler.itemsOnGround) {
+
+    public void generateLayingItems() {
+        for (LayingItem item : HandlersManager.layingItemHandler.itemsOnGround) {
             map[item.getX()][item.getY()] = item;
         }
     }
@@ -255,13 +261,21 @@ public class MapHandler {
 
     public void update() {
         renderEntities(HandlersManager.entityHandler);
+        renderLayingItems();
     }
 
 
     private void renderEntities(EntityHandler entityHandler) {
-        List<Entity> entities = entityHandler.getEntities();
-        for (Entity entity : entities) {
+        List<Enemy> entities = entityHandler.getEnemies();
+        for (Enemy entity : entities) {
             map[entity.getX()][entity.getY()] = entity;
+        }
+        map[entityHandler.getPlayer().getX()][entityHandler.getPlayer().getY()] = entityHandler.getPlayer();
+    }
+
+    private void renderLayingItems() {
+        for (LayingItem item : HandlersManager.layingItemHandler.itemsOnGround) {
+            map[item.getX()][item.getY()] = item;
         }
     }
 }
