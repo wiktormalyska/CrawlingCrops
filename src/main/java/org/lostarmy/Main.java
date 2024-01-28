@@ -9,7 +9,7 @@ public class Main {
         int mapY = 50;
         int screenX = 13;
         int screenY = 100;
-        ScreenHandler screenHandler = new ScreenHandler(screenX, screenY, mapX, mapY);
+        ScreenHandler screenHandler = new ScreenHandler(screenX, screenY);
         HandlersManager.init(screenHandler, mapX, mapY);
 
     }
