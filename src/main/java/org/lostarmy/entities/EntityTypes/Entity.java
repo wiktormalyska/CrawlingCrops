@@ -1,7 +1,10 @@
 package org.lostarmy.entities.EntityTypes;
 
 import org.lostarmy.map.CellTypes.Cell;
+import org.lostarmy.map.CellTypes.Tree;
+import org.lostarmy.map.CellTypes.Wall;
 import org.lostarmy.map.MapHandler;
+import org.lostarmy.utils.HandlersManager;
 
 public abstract class Entity extends Cell {
 
@@ -42,12 +45,15 @@ public abstract class Entity extends Cell {
         return maxHealth;
     }
 
-    public void moveTo(int x, int y){
-        if (x == 0 || x == MapHandler.mapSizeX+1 || y == 0 || y == MapHandler.mapSizeY+1)return;
-        super.setY(y);
-        super.setX(x);
-    }
+public void moveTo(int x, int y){
+    if (x == 0 || x == MapHandler.mapSizeX+1 || y == 0 || y == MapHandler.mapSizeY+1) return;
 
+    Cell destinationCell = HandlersManager.mapHandler.getCell(x, y);
+    if (destinationCell instanceof Wall || destinationCell instanceof Tree) return;
+
+    super.setY(y);
+    super.setX(x);
+}
 
 
     public int getDamage() {

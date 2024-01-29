@@ -5,19 +5,12 @@ import org.lostarmy.utils.HandlersManager;
 
 public class Main {
     public static void main(String[] args) {
-        int mapX = 10;
-        int mapY = 10;
-        int screenX = mapX+3;
+        int mapX = 50;
+        int mapY = 50;
+        int screenX = 13;
         int screenY = 100;
-        ScreenHandler screenHandler = new ScreenHandler(screenX, screenY, mapX, mapY);
+        ScreenHandler screenHandler = new ScreenHandler(screenX, screenY);
         HandlersManager.init(screenHandler, mapX, mapY);
 
-
-
-        //KeyPressHandler keyPressHandler = new KeyPressHandler();
     }
-
-
-
-        //mapHandler.saveToFile("resources/map.txt");
 }

@@ -31,7 +31,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
     }
 
     private void getInventoryDisplay() {
-        //clearDisplay();
+        clearDisplay();
         clearScreen();
         setText("--Inventory--", 0, 0, ConsoleColors.YELLOW);
         for (int i = 0; i < entityHandler.getPlayer().getInventory().backpack.size(); i++) {
@@ -111,6 +111,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
             case 'q', 'Q' -> {
                 InventoryItem item = entityHandler.getPlayer().getInventory().backpack.get(selectedLine);
                 entityHandler.getPlayer().getInventory().backpack.remove(item);
+                selectedLine = 0;
             }
             case 'f', 'F' -> {
                 clearDisplay();

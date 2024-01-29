@@ -1,15 +1,18 @@
 package org.lostarmy.items;
 
+import org.lostarmy.utils.ConsoleColors;
+
 public enum FoodList {
-    MEAT()
+    MEAT("Meat", ConsoleColors.PURPLE+"8", 5),
+    ROTTEN_MEAT("Rotten Meat", ConsoleColors.GREEN+"8", 2),
     ;
     public final String name;
     public final String display;
     public final int regenHealth;
-    FoodList (){
-        this.name = "Meat";
-        this.display = "\u001B[1;35m8";
-        this.regenHealth = 5;
+    FoodList (String name, String display, int regenHealth){
+        this.name = name;
+        this.display = display;
+        this.regenHealth = regenHealth;
     }
 
 }

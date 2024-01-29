@@ -1,13 +1,15 @@
 package org.lostarmy.items;
 
+import org.lostarmy.utils.ConsoleColors;
+
 public enum ItemsList {
-    STICK();
+    ;
     public final String name;
     public final String display;
 
-    ItemsList() {
-        this.name = "Stick";
-        this.display = "\u001B[1;33m/";
+    ItemsList(String name, String display) {
+        this.name = name;
+        this.display = display;
     }
 
 }
