@@ -46,6 +46,30 @@ public class Enemy extends Entity {
                 }
             }
 
+        } else {
+            boolean move = Math.random() < 0.6;
+            if (move) {
+
+                // Randomly decide whether to move in the x or y direction
+                boolean moveInX = Math.random() < 0.5;
+
+                // Randomly decide whether to move positively or negatively in the chosen direction
+                int direction = Math.random() < 0.5 ? -1 : 1;
+
+                // Calculate the new position
+                int nextX = this.getX();
+                int nextY = this.getY();
+                if (moveInX) {
+                    nextX += direction;
+                } else {
+                    nextY += direction;
+                }
+
+                // Check if the new position is valid and not occupied by another enemy
+                if (HandlersManager.entityHandler.getEnemyAt(nextX, nextY) == null) {
+                    this.moveTo(nextX, nextY);
+                }
+            }
         }
 
     }

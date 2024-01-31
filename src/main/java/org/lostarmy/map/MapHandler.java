@@ -44,8 +44,6 @@ public class MapHandler implements MapHandlerUtils {
             }
             nextLevel = false;
         }
-        HandlersManager.layingItemHandler.generateItems();
-
     }
 
     public void generateCaveMap() {

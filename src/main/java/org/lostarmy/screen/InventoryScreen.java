@@ -18,7 +18,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
     private int selectedLine = 0;
 
     public InventoryScreen(int x, int y, int mapX, int mapY) {
-        super(x, y, mapX, mapY);
+        super(x, y);
     }
 
     public void openInventory() {
