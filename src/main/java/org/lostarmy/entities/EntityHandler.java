@@ -43,6 +43,25 @@ public class EntityHandler {
                     enemiesTypes.add(EnemyType.BEAR);
                 }
             }
+            case 3 -> {
+                for (int i = 0; i < numWolves; i++) {
+                    enemiesTypes.add(EnemyType.WOLF);
+                }
+                for (int i = 0; i < numBears; i++) {
+                    enemiesTypes.add(EnemyType.BEAR);
+                }
+            }
+            case 4 -> {
+                for (int i = 0; i < numWolves+2; i++) {
+                    enemiesTypes.add(EnemyType.WOLF);
+                }
+                for (int i = 0; i < numBears+1; i++) {
+                    enemiesTypes.add(EnemyType.BEAR);
+                }
+            }
+            case 5 -> {
+                enemiesTypes.add(EnemyType.HYDRA_BEAR);
+            }
         }
 
         for (EnemyType enemyType : enemiesTypes) {
