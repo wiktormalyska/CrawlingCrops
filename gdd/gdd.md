@@ -29,37 +29,22 @@ Przygotuj się na spotkanie różnorodnych istot, takich jak (wypisane trudnośc
 - Niedźwiedzie
 - Hydra niedźwiedzie(3 głowy niedźwiedź)
 
-## Opanuj Sztukę Rzemiosła 🛠️🔥
-
-Zbieraj surowce od pokonanych wrogów i zbieraj materiały z lasu, aby tworzyć potężne bronie, zbroje i narzędzia. Stwórz wyposażenie, które pomoże Ci w Twojej heroicznej podróży. ⚒️💼
-
-Materiały:
-- Drewno
-- Żelazo
-- Miedź
-- Brąz
-- Stal
-- Srebro
-- Złoto
-- Mytril
-
 ## Cel gry! 📜🌟
-Podrużując przez las będziesz napotykał na rozmaite wejścia do jaskiń, które są jednym wielkim systemem jaskiń. Schodząc coraz niżej znajdziesz coraz trudniejszych przeciwników. znajdziesz również komnaty ze skarbami. Na końcu staniesz twarzą w twarz z MiniJacobem. Władcą czeluści.
+Podrużując przez las będziesz napotykasz jaskinie. Schodząc coraz niżej (max 5 poziomów) znajdziesz coraz trudniejszych przeciwników. znajdziesz również komnaty ze skarbami. Na końcu staniesz twarzą w twarz z Hydrą niedźwiedziem!
 
 Przygotuj się na niezapomnianą przygodę w Zagubionej Armii, gdzie każdy krok zbliża Cię do odkrycia tajemnic zaczarowanego lasu i wykucia własnej epickiej opowieści! 🌲🗡️🌟
 
 ## Czynności podczas tury
-- Atak
-- Ruch
-- Tworzenie w ekwipunku
-- użycie stołu(piec, stół rzemieślniczy)
+- Przemieszczanie się
+- Atakowanie
+- Zarządzanie ekwipunkiem
 
 ## System walki:
 - Wrogowie są wyświetlani w 3 kolorach:
 - Czerwony - gracz na pewno zginie
 - Pomarańczowy - gracz zginie jeśli oberwie atakiem krytycznym
 - Zielony - gracz na pewno pokona przeciwnika
-- Walka odbywa się w ciągu 1 tury
+- Walka odbywa się dopóki gracz nie odejdzie od niej, jednak trzeba mieć na głowie to że potwory podążają za tobą!
 
 ## System ekwipunku:
 - Ekwipunek podczas ruchu gracza jest podglądem na założone przedmioty.
