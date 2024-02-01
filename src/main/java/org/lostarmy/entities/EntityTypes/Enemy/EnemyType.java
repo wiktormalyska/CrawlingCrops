@@ -14,10 +14,10 @@ public enum EnemyType {
     public Enemy getEnemy(int x, int y){
         switch (this) {
             case RAT -> {
-                return new Enemy(x, y, "R", "Rat", 10, List.of(Item.getAsItem(FoodList.MEAT), Item.getAsItem(FoodList.ROTTEN_MEAT)), 3, 1, 0.2);
+                return new Enemy(x, y, "R", "Rat", 10, List.of(Item.getAsItem(FoodList.MEAT), Item.getAsItem(FoodList.ROTTEN_MEAT)), 3, 1, 0.4);
             }
             case WOLF -> {
-                return new Enemy(x, y, "W", "Wolf", 40, List.of(Item.getAsItem(FoodList.MEAT), Item.getAsItem(FoodList.ROTTEN_MEAT)), 7, 6, 0.25);
+                return new Enemy(x, y, "W", "Wolf", 40, List.of(Item.getAsItem(FoodList.MEAT), Item.getAsItem(FoodList.ROTTEN_MEAT)), 6, 4, 0.2);
             }
             case HOG -> {
                 return new Enemy(x, y, "H", "Hog", 40, List.of(Item.getAsItem(FoodList.MEAT), Item.getAsItem(FoodList.ROTTEN_MEAT)), 7, 6, 0.4);
@@ -26,7 +26,7 @@ public enum EnemyType {
                 return new Enemy(x, y, "B", "Bear", 40, List.of(Item.getAsItem(FoodList.MEAT), Item.getAsItem(FoodList.ROTTEN_MEAT)), 8, 5, 0.35);
             }
             case HYDRA_BEAR -> {
-                return new Enemy(x, y, "&", "Hydra Bear", 100, List.of(Item.getAsItem(FoodList.MEAT), Item.getAsItem(FoodList.ROTTEN_MEAT)), 10, 6, 0.4);
+                return new Enemy(x, y, "&", "Hydra Bear", 80, List.of(Item.getAsItem(FoodList.MEAT), Item.getAsItem(FoodList.ROTTEN_MEAT)), 8, 6, 0.4);
             }
         }
         return null;

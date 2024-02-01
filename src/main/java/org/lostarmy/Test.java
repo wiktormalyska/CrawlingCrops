@@ -25,7 +25,7 @@ public class Test {
         int tury = 0;
         for (int i = 0; i < iloscTestow; i++) {
             Enemy enemy = EnemyType.getEnemyByType(type, 0, 0);
-            Player player = Player.testPlayer();
+            Player player = Player.genPlayer(0, 0);
             int rundy = 0;
             while (true) {
                 rundy++;

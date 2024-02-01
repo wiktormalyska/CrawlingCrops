@@ -101,7 +101,7 @@ public class EntityHandler {
     public EntityHandler() {
         MapHandler mapHandler = HandlersManager.mapHandler;
         Cell center = mapHandler.findClosestFreeCell(mapHandler.getMap());
-        this.player = new Player(center.getX(), center.getY(), ConsoleColors.PURPLE_BOLD_BRIGHT + "@", "Player", 20, 10, 5, 0.25);
+        this.player = Player.genPlayer(center.getX(), center.getY());
     }
 
     public void deleteEntity(Entity entity) {
