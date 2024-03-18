@@ -24,8 +24,8 @@ public class KeyPressHandler{
             updateMap(screenHandler);
             while (!entityHandler.getPlayer().isDead()) {
                 if (isServer){
-                    String clientInput = ServerWebSocket.readLine();
-                    if (clientInput.isEmpty()) continue;
+                    String clientInput = screenHandler.clientHandler.readLine();
+                    if (clientInput== null ||clientInput.isEmpty()) continue;
                     int key = clientInput.charAt(0);
                     keyPressed(key);
                 } else {
@@ -39,7 +39,7 @@ public class KeyPressHandler{
             }
             ScreenHandler.clearDisplay();
             if (isServer){
-                ServerWebSocket.println("You died!");
+                screenHandler.clientHandler.println("You died!");
             } else {
                 System.out.println("You died!");
             }
@@ -68,11 +68,17 @@ public class KeyPressHandler{
             }
             case 'f','F' -> {
                 if (ScreenHandler.isServer){
-                    ServerWebSocket.println("You opened inventory");
+                    screenHandler.clientHandler.println("You opened inventory");
                 } else {
                     System.out.println("You opened inventory");
                 }
-                InventoryScreen inventoryScreen = new InventoryScreen(screenHandler.screenCells.length, screenHandler.screenCells[0].length, screenHandler.mapX, screenHandler.mapY);
+                InventoryScreen inventoryScreen;
+                if (screenHandler.clientHandler != null){
+                    inventoryScreen = new InventoryScreen(screenHandler.screenCells.length, screenHandler.screenCells[0].length, screenHandler.mapX, screenHandler.mapY, screenHandler.clientHandler);
+                } else {
+                    inventoryScreen = new InventoryScreen(screenHandler.screenCells.length, screenHandler.screenCells[0].length, screenHandler.mapX, screenHandler.mapY);
+
+                }
                 inventoryScreen.openInventory();
                 updateMap(screenHandler);
             }

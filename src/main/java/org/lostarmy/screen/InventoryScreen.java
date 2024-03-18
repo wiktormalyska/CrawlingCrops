@@ -1,5 +1,6 @@
 package org.lostarmy.screen;
 
+import org.lostarmy.ClientHandler;
 import org.lostarmy.ServerWebSocket;
 import org.lostarmy.entities.EntityTypes.Player.Inventory.Inventory;
 import org.lostarmy.entities.EntityTypes.Player.Inventory.InventoryItem;
@@ -17,10 +18,15 @@ import static org.lostarmy.utils.HandlersManager.entityHandler;
 
 public class InventoryScreen extends ScreenHandler implements Use {
     private boolean isServer = ScreenHandler.isServer;
+    private ClientHandler clientHandler;
     private int selectedLine = 0;
 
     public InventoryScreen(int x, int y, int mapX, int mapY) {
         super(x, y);
+    }
+    public InventoryScreen(int x, int y, int mapX, int mapY, ClientHandler clientHandler) {
+        super(x, y);
+        this.clientHandler = clientHandler;
     }
 
     public void openInventory() {
@@ -85,7 +91,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
         if (isServer){
             String input;
             try {
-                input = ServerWebSocket.readLine();
+                input = clientHandler.readLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -119,7 +125,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
                 Item item = entityHandler.getPlayer().getInventory().backpack.get(selectedLine).item;
                 if (!(item instanceof Armor) && !(item instanceof Food)) {
                     if (isServer) {
-                        ServerWebSocket.println("You can't equip/use this item!");
+                        clientHandler.println("You can't equip/use this item!");
                     } else {
                         System.out.println("You can't equip/use this item!");
                     }
@@ -131,7 +137,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
             case 'q', 'Q' -> {
                 if (entityHandler.getPlayer().getInventory().backpack.isEmpty()) {
                     if (isServer) {
-                        ServerWebSocket.println("You have nothing to drop!");
+                        clientHandler.println("You have nothing to drop!");
                     } else {
                         System.out.println("You have nothing to drop!");
                     }
@@ -144,7 +150,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
             case 'f', 'F' -> {
                 clearDisplay();
                 if (isServer) {
-                    ServerWebSocket.println("You closed inventory");
+                    clientHandler.println("You closed inventory");
                     return false;
                 } else {
                     System.out.println("You closed inventory");
@@ -165,9 +171,9 @@ public class InventoryScreen extends ScreenHandler implements Use {
         if (isServer) {
             for (int i = 0; i < screenCells.length - 1; i++) {
                 for (int j = 0; j < screenCells[0].length - 1; j++) {
-                    ServerWebSocket.print(screenCells[i][j].getDisplay());
+                    clientHandler.print(screenCells[i][j].getDisplay());
                 }
-                ServerWebSocket.println("");
+                clientHandler.println("");
             }
         } else {
             for (int i = 0; i < screenCells.length - 1; i++) {

@@ -1,5 +1,6 @@
 package org.lostarmy.screen;
 
+import org.lostarmy.ClientHandler;
 import org.lostarmy.ServerWebSocket;
 import org.lostarmy.entities.EntityTypes.Enemy.Enemy;
 import org.lostarmy.entities.EntityTypes.Player.Inventory.Inventory;
@@ -20,7 +21,7 @@ public class ScreenHandler {
     public final Cell[][] screenCells;
     public final int mapX;
     public final int mapY;
-
+    public ClientHandler clientHandler;
     public static boolean isServer = false;
 
     public void setCell(Cell cell, int x, int y) {
@@ -38,7 +39,7 @@ public class ScreenHandler {
         }
     }
 
-    public ScreenHandler(int x, int y, boolean isServer) {
+    public ScreenHandler(int x, int y, boolean isServer, ClientHandler clientHandler) {
         this.mapX = 10;
         this.mapY = 10;
         ScreenHandler.isServer = isServer;
@@ -48,6 +49,7 @@ public class ScreenHandler {
                 screenCells[i][j] = new Blank(i, j);
             }
         }
+        this.clientHandler = clientHandler;
     }
 
     protected void setText(String text, int x, int y) {
@@ -108,25 +110,24 @@ public class ScreenHandler {
                     int mapY = playerY - 5 + j;
                     if (screenCells[i][j] instanceof Enemy) {
                         Enemy tempEnemy = entityHandler.getEnemyAt(mapX, mapY);
-                        ServerWebSocket.print(tempEnemy.getEnemyHardness() + screenCells[i][j].getDisplay() + ConsoleColors.RESET);
+                        clientHandler.print(tempEnemy.getEnemyHardness() + screenCells[i][j].getDisplay() + ConsoleColors.RESET);
                     } else {
-                        ServerWebSocket.print(screenCells[i][j].getDisplay() + ConsoleColors.RESET);
+                        clientHandler.print(screenCells[i][j].getDisplay() + ConsoleColors.RESET);
                     }
                 }
-                ServerWebSocket.println("");
+                clientHandler.println("");
             }
         }
     }
 
     public static void clearDisplay() {
-        if (isServer){
-            for (int i = 0; i < 100; i++) {
-                ServerWebSocket.println("");
-            }
-        } else {
             for (int i = 0; i < 100; i++) {
                 System.out.print("\n");
             }
+    }
+    public static void clearDisplay(ClientHandler clientHandler) {
+        for (int i = 0; i < 100; i++) {
+            clientHandler.println("");
         }
     }
     protected void clearScreen() {
