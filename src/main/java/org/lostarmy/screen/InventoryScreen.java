@@ -1,5 +1,6 @@
 package org.lostarmy.screen;
 
+import org.lostarmy.ServerWebSocket;
 import org.lostarmy.entities.EntityTypes.Player.Inventory.Inventory;
 import org.lostarmy.entities.EntityTypes.Player.Inventory.InventoryItem;
 import org.lostarmy.items.Armor;
@@ -15,6 +16,7 @@ import java.io.InputStreamReader;
 import static org.lostarmy.utils.HandlersManager.entityHandler;
 
 public class InventoryScreen extends ScreenHandler implements Use {
+    private boolean isServer = ScreenHandler.isServer;
     private int selectedLine = 0;
 
     public InventoryScreen(int x, int y, int mapX, int mapY) {
@@ -79,15 +81,29 @@ public class InventoryScreen extends ScreenHandler implements Use {
     }
 
     private boolean readInput() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String input;
-        try {
-            input = reader.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        int key;
+        if (isServer){
+            String input;
+            try {
+                input = ServerWebSocket.readLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (input==null || input.isEmpty()) return true;
+            key = input.charAt(0);
+            System.out.printf("Key: %s\n", key);
+        } else {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String input;
+            try {
+                input = reader.readLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (input.isEmpty()) return true;
+            key = input.charAt(0);
+            System.out.printf("Key: %s\n", key);
         }
-        if (input.isEmpty()) return true;
-        int key = input.charAt(0);
         switch (key) {
             case 'w', 'W' -> {
                 if (selectedLine > 0) {
@@ -102,21 +118,38 @@ public class InventoryScreen extends ScreenHandler implements Use {
             case 'e', 'E' -> {
                 Item item = entityHandler.getPlayer().getInventory().backpack.get(selectedLine).item;
                 if (!(item instanceof Armor) && !(item instanceof Food)) {
-                    System.out.println("You can't equip/use this item!");
+                    if (isServer) {
+                        ServerWebSocket.println("You can't equip/use this item!");
+                    } else {
+                        System.out.println("You can't equip/use this item!");
+                    }
                     return true;
                 }
                 useItem(item, selectedLine);
                 selectedLine = 0;
             }
             case 'q', 'Q' -> {
+                if (entityHandler.getPlayer().getInventory().backpack.isEmpty()) {
+                    if (isServer) {
+                        ServerWebSocket.println("You have nothing to drop!");
+                    } else {
+                        System.out.println("You have nothing to drop!");
+                    }
+                    return true;
+                }
                 InventoryItem item = entityHandler.getPlayer().getInventory().backpack.get(selectedLine);
                 entityHandler.getPlayer().getInventory().backpack.remove(item);
                 selectedLine = 0;
             }
             case 'f', 'F' -> {
                 clearDisplay();
-                System.out.println("You closed inventory");
-                return false;
+                if (isServer) {
+                    ServerWebSocket.println("You closed inventory");
+                    return false;
+                } else {
+                    System.out.println("You closed inventory");
+                    return false;
+                }
             }
         }
         return true;
@@ -129,11 +162,20 @@ public class InventoryScreen extends ScreenHandler implements Use {
         } else {
             setText("You have nothing in inventory!", 1, 0);
         }
-        for (int i = 0; i < screenCells.length - 1; i++) {
-            for (int j = 0; j < screenCells[0].length - 1; j++) {
-                System.out.print(screenCells[i][j].getDisplay());
+        if (isServer) {
+            for (int i = 0; i < screenCells.length - 1; i++) {
+                for (int j = 0; j < screenCells[0].length - 1; j++) {
+                    ServerWebSocket.print(screenCells[i][j].getDisplay());
+                }
+                ServerWebSocket.println("");
             }
-            System.out.print("\n");
+        } else {
+            for (int i = 0; i < screenCells.length - 1; i++) {
+                for (int j = 0; j < screenCells[0].length - 1; j++) {
+                    System.out.print(screenCells[i][j].getDisplay());
+                }
+                System.out.print("\n");
+            }
         }
     }
 

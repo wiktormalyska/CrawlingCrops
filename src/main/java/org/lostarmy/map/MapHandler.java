@@ -55,7 +55,7 @@ public class MapHandler implements MapHandlerUtils {
                 map[i][j] = new Wall(i, j);
             }
         }
-        //printMap();
+        //printMap(map);
 
         for (int i = 2; i < map.length - 2; i++) {
             for (int j = 2; j < map[0].length - 2; j++) {
@@ -66,7 +66,7 @@ public class MapHandler implements MapHandlerUtils {
                 }
             }
         }
-        //printMap();
+        //printMap(map);
 
         Cell center = findCenter(map);
         map[center.getX()][center.getY()] = new Marker(center.getX(), center.getY(), ConsoleColors.RED);
@@ -74,7 +74,7 @@ public class MapHandler implements MapHandlerUtils {
             Cell closest = findClosest(center.getX(), center.getY(), map);
             drawLine(center.getX(), center.getY(), closest.getX(), closest.getY());
             center = closest;
-            //printMap();
+            //printMap(map);
         }
 
         generateBorder();
