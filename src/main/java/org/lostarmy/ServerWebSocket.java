@@ -9,7 +9,7 @@ import java.io.*;
 // Server requires .env file with PORT variable in it, for example: PORT=2121
 public class ServerWebSocket {
 
-    public void start(int port) throws IOException {
+    public void start(int port){
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             boolean isRunning = true;
