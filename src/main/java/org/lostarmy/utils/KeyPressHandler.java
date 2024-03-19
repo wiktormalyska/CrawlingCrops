@@ -1,5 +1,6 @@
 package org.lostarmy.utils;
 
+import org.lostarmy.ServerWebSocket;
 import org.lostarmy.events.MoveEvent;
 import org.lostarmy.events.MoveTypes;
 import org.lostarmy.screen.InventoryScreen;
@@ -16,19 +17,32 @@ public class KeyPressHandler{
     private final ScreenHandler screenHandler;
     public KeyPressHandler(ScreenHandler screenHandler){
         this.screenHandler = screenHandler;
+        boolean isServer = ScreenHandler.isServer;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             //main game loop
             updateMap(screenHandler);
             while (!entityHandler.getPlayer().isDead()) {
-                String input = reader.readLine();
-                if (input.isEmpty()) continue;
-                int key = input.charAt(0);
-                keyPressed(key);
+                if (isServer){
+                    String clientInput = screenHandler.clientHandler.readLine();
+                    if (clientInput== null ||clientInput.isEmpty()) continue;
+                    int key = clientInput.charAt(0);
+                    keyPressed(key);
+                } else {
+                    String input = reader.readLine();
+                    if (input.isEmpty()) continue;
+                    int key = input.charAt(0);
+                    keyPressed(key);
+                }
+
                 entityHandler.update();
             }
             ScreenHandler.clearDisplay();
-            System.out.println("You died!");
+            if (isServer){
+                screenHandler.clientHandler.println("You died!");
+            } else {
+                System.out.println("You died!");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,8 +67,18 @@ public class KeyPressHandler{
                 updateMap(screenHandler);
             }
             case 'f','F' -> {
-                System.out.println("You opened inventory");
-                InventoryScreen inventoryScreen = new InventoryScreen(screenHandler.screenCells.length, screenHandler.screenCells[0].length, screenHandler.mapX, screenHandler.mapY);
+                if (ScreenHandler.isServer){
+                    screenHandler.clientHandler.println("You opened inventory");
+                } else {
+                    System.out.println("You opened inventory");
+                }
+                InventoryScreen inventoryScreen;
+                if (screenHandler.clientHandler != null){
+                    inventoryScreen = new InventoryScreen(screenHandler.screenCells.length, screenHandler.screenCells[0].length, screenHandler.mapX, screenHandler.mapY, screenHandler.clientHandler);
+                } else {
+                    inventoryScreen = new InventoryScreen(screenHandler.screenCells.length, screenHandler.screenCells[0].length, screenHandler.mapX, screenHandler.mapY);
+
+                }
                 inventoryScreen.openInventory();
                 updateMap(screenHandler);
             }
