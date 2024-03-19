@@ -1,23 +1,28 @@
 package org.lostarmy;
+
 import org.lostarmy.screen.ScreenHandler;
 import org.lostarmy.utils.HandlersManager;
 
 import java.net.*;
 import java.io.*;
 
+// Server requires .env file with PORT variable in it, for example: PORT=2121
 public class ServerWebSocket {
-    private boolean isRunning;
-    private ServerSocket serverSocket;
 
     public void start(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
-        isRunning = true;
-        System.out.println("LostArmy Hosting Server started on port " + port);
-        while (isRunning) {
-            Socket clientSocket = serverSocket.accept();
-            new Thread(() -> handleClient(clientSocket)).start();
+        try {
+            ServerSocket serverSocket = new ServerSocket(port);
+            boolean isRunning = true;
+            System.out.println("LostArmy Hosting Server started on port " + port);
+            while (isRunning) {
+                Socket clientSocket = serverSocket.accept();
+                new Thread(() -> handleClient(clientSocket)).start();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
+
     private void handleClient(Socket clientSocket) {
         try {
             ClientHandler clientHandler = new ClientHandler(clientSocket);
@@ -55,8 +60,24 @@ public class ServerWebSocket {
         }
 
     }
+
     public static void main(String[] args) throws IOException {
-        ServerWebSocket server=new ServerWebSocket();
-        server.start(6666);
+        ServerWebSocket server = new ServerWebSocket();
+        server.start(getPort());
+    }
+
+    public static int getPort() throws IOException {
+        File file = new File(".env");
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        int port;
+        for (String line = br.readLine(); line != null; line = br.readLine()) {
+            String[] splitted = line.split("=");
+            if (splitted[0].equals("PORT")) {
+                port = Integer.parseInt(splitted[1]);
+                return port;
+            }
+        }
+        throw new RuntimeException("Port not found in .env file");
     }
 }
