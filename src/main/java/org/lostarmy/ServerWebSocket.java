@@ -1,5 +1,4 @@
 package org.lostarmy;
-
 import org.lostarmy.screen.ScreenHandler;
 import org.lostarmy.utils.HandlersManager;
 
@@ -9,20 +8,15 @@ import java.io.*;
 // Server requires .env file with PORT variable in it, for example: PORT=2121
 public class ServerWebSocket {
 
-    public void start(int port){
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            boolean isRunning = true;
-            System.out.println("LostArmy Hosting Server started on port " + port);
-            while (isRunning) {
-                Socket clientSocket = serverSocket.accept();
-                new Thread(() -> handleClient(clientSocket)).start();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    public void start(int port) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(port);
+        boolean isRunning = true;
+        System.out.println("LostArmy Hosting Server started on port " + port);
+        while (isRunning) {
+            Socket clientSocket = serverSocket.accept();
+            new Thread(() -> handleClient(clientSocket)).start();
         }
     }
-
     private void handleClient(Socket clientSocket) {
         try {
             ClientHandler clientHandler = new ClientHandler(clientSocket);
@@ -60,9 +54,8 @@ public class ServerWebSocket {
         }
 
     }
-
     public static void main(String[] args) throws IOException {
-        ServerWebSocket server = new ServerWebSocket();
+        ServerWebSocket server=new ServerWebSocket();
         server.start(getPort());
     }
 
@@ -71,10 +64,10 @@ public class ServerWebSocket {
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
         int port;
-        for (String line = br.readLine(); line != null; line = br.readLine()) {
+        for (String line = br.readLine(); line != null; line = br.readLine()){
             String[] splitted = line.split("=");
-            if (splitted[0].equals("PORT")) {
-                port = Integer.parseInt(splitted[1]);
+            if (splitted [0].equals("PORT")){
+                port = Integer.parseInt(splitted [1]);
                 return port;
             }
         }
