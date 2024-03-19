@@ -39,7 +39,11 @@ public class InventoryScreen extends ScreenHandler implements Use {
     }
 
     private void getInventoryDisplay() {
-        clearDisplay();
+        if (!isServer){
+            clearDisplay();
+        } else {
+            clearDisplay(clientHandler);
+        }
         clearScreen();
         setText("--Inventory--", 0, 0, ConsoleColors.YELLOW);
         for (int i = 0; i < entityHandler.getPlayer().getInventory().backpack.size(); i++) {
@@ -148,11 +152,12 @@ public class InventoryScreen extends ScreenHandler implements Use {
                 selectedLine = 0;
             }
             case 'f', 'F' -> {
-                clearDisplay();
                 if (isServer) {
+                    clearDisplay(clientHandler);
                     clientHandler.println("You closed inventory");
                     return false;
                 } else {
+                    clearDisplay();
                     System.out.println("You closed inventory");
                     return false;
                 }

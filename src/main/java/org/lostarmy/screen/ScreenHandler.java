@@ -65,8 +65,10 @@ public class ScreenHandler {
     }
 
     public void print() {
-        if(isServer){
+        if(!isServer){
             clearDisplay();
+        } else {
+            clearDisplay(clientHandler);
         }
 
         clearScreen();

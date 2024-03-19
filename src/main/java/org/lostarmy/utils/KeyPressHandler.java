@@ -37,10 +37,12 @@ public class KeyPressHandler{
 
                 entityHandler.update();
             }
-            ScreenHandler.clearDisplay();
+
             if (isServer){
+                ScreenHandler.clearDisplay(screenHandler.clientHandler);
                 screenHandler.clientHandler.println("You died!");
             } else {
+                ScreenHandler.clearDisplay();
                 System.out.println("You died!");
             }
         } catch (IOException e) {
