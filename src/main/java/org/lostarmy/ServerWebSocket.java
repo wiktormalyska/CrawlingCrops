@@ -45,7 +45,7 @@ public class ServerWebSocket {
                         clientHandler.println("Game exited");
                         exit = true;
                     }
-                    default -> clientHandler.println("Invalid command");
+                    default -> clientHandler.println("Invalid command: "+readLine);
                 }
                 //clientHandler.println(readLine);
             }
