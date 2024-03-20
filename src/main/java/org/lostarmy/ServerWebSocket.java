@@ -27,6 +27,9 @@ public class ServerWebSocket {
             boolean exit = false;
             while (!exit) {
                 String readLine = clientHandler.readLine();
+                if (readLine == null) {
+                    continue;
+                }
                 switch (readLine) {
                     case "start" -> {
                         int mapX = 50;
