@@ -40,7 +40,10 @@ public interface Use {
         if (player.getMaxHealth()<player.getHealth()) {
                 player.setHealth(player.getMaxHealth());
         }
-        System.out.println("You ate "+food.name+" and gained "+food.regenHealth+" health!");
+        if (ScreenHandler.isServer)
+            clientHandler.println("You ate "+food.name+" and gained "+food.regenHealth+" health!");
+        else
+            System.out.println("You ate "+food.name+" and gained "+food.regenHealth+" health!");
 
     }
 }
