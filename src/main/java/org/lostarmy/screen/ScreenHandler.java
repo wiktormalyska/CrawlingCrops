@@ -1,6 +1,7 @@
 package org.lostarmy.screen;
 
 import org.lostarmy.ClientHandler;
+import org.lostarmy.Main;
 import org.lostarmy.ServerWebSocket;
 import org.lostarmy.entities.EntityTypes.Enemy.Enemy;
 import org.lostarmy.entities.EntityTypes.Player.Inventory.Inventory;
@@ -65,7 +66,7 @@ public class ScreenHandler {
     }
 
     public void print() {
-        if(!isServer){
+        if (!isServer) {
             clearDisplay();
         } else {
             clearDisplay(clientHandler);
@@ -91,19 +92,32 @@ public class ScreenHandler {
         int playerY = entityHandler.getPlayer().getY();
 
         if (!isServer) {
-
-            for (int i = 0; i < screenCells.length - 1; i++) {
-                for (int j = 0; j < screenCells[0].length - 1; j++) {
-                    int mapX = playerX - 5 + i;
-                    int mapY = playerY - 5 + j;
-                    if (screenCells[i][j] instanceof Enemy) {
-                        Enemy tempEnemy = entityHandler.getEnemyAt(mapX, mapY);
-                        System.out.print(tempEnemy.getEnemyHardness() + screenCells[i][j].getDisplay() + ConsoleColors.RESET);
-                    } else {
-                        System.out.print(screenCells[i][j].getDisplay() + ConsoleColors.RESET);
+            if (!Main.viewFullMap) {
+                for (int i = 0; i < screenCells.length - 1; i++) {
+                    for (int j = 0; j < screenCells[0].length - 1; j++) {
+                        int mapX = playerX - 5 + i;
+                        int mapY = playerY - 5 + j;
+                        if (screenCells[i][j] instanceof Enemy) {
+                            Enemy tempEnemy = entityHandler.getEnemyAt(mapX, mapY);
+                            System.out.print(tempEnemy.getEnemyHardness() + screenCells[i][j].getDisplay() + ConsoleColors.RESET);
+                        } else {
+                            System.out.print(screenCells[i][j].getDisplay() + ConsoleColors.RESET);
+                        }
                     }
+                    System.out.print("\n");
                 }
-                System.out.print("\n");
+            } else {
+                for (int i = 0; i < mapHandler.getMap().length; i++) {
+                    for (int j = 0; j < mapHandler.getMap()[0].length; j++) {
+                        if (mapHandler.getMap()[i][j] instanceof Enemy) {
+                            Enemy tempEnemy = entityHandler.getEnemyAt(i, j);
+                            System.out.print(tempEnemy.getEnemyHardness() + mapHandler.getMap()[i][j].getDisplay() + ConsoleColors.RESET);
+                        } else {
+                            System.out.print(mapHandler.getMap()[i][j].getDisplay() + ConsoleColors.RESET);
+                        }
+                    }
+                    System.out.print("\n");
+                }
             }
         } else {
             for (int i = 0; i < screenCells.length - 1; i++) {
@@ -123,15 +137,17 @@ public class ScreenHandler {
     }
 
     public static void clearDisplay() {
-            for (int i = 0; i < 100; i++) {
-                System.out.print("\n");
-            }
+        for (int i = 0; i < 100; i++) {
+            System.out.print("\n");
+        }
     }
+
     public static void clearDisplay(ClientHandler clientHandler) {
         for (int i = 0; i < 100; i++) {
             clientHandler.println("");
         }
     }
+
     protected void clearScreen() {
         for (int i = 0; i < screenCells.length - 1; i++) {
             for (int j = 0; j < screenCells[0].length - 1; j++) {

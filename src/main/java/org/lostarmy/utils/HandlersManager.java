@@ -15,6 +15,7 @@ public class HandlersManager {
         entityHandler.generateEnemies();
 
         layingItemHandler = new LayingItemHandler();
+        layingItemHandler.generateItems();
         mapHandler.generateLayingItems();
         //start timer
         keyPressHandler = new KeyPressHandler(screenHandler);

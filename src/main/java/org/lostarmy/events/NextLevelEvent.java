@@ -16,6 +16,8 @@ public class NextLevelEvent extends Event {
         HandlersManager.mapHandler.nextLevel = true;
         HandlersManager.mapHandler.generateMap();
         HandlersManager.entityHandler.generateEnemies();
+        HandlersManager.layingItemHandler.generateItems();
+        HandlersManager.mapHandler.generateLayingItems();
         Player player = HandlersManager.entityHandler.getPlayer();
         Cell pp = HandlersManager.mapHandler.findClosestFreeCell(HandlersManager.mapHandler.getMap());
         player.setX(pp.getX());
