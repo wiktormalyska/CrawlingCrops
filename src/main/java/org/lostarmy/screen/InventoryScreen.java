@@ -101,7 +101,6 @@ public class InventoryScreen extends ScreenHandler implements Use {
             }
             if (input==null || input.isEmpty()) return true;
             key = input.charAt(0);
-            System.out.printf("Key: %s\n", key);
         } else {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             String input;
@@ -135,7 +134,7 @@ public class InventoryScreen extends ScreenHandler implements Use {
                     }
                     return true;
                 }
-                useItem(item, selectedLine);
+                useItem(item, selectedLine, clientHandler);
                 selectedLine = 0;
             }
             case 'q', 'Q' -> {
