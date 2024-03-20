@@ -30,6 +30,7 @@ public class ServerWebSocket {
                 if (readLine == null) {
                     continue;
                 }
+                System.out.println();
                 switch (readLine) {
                     case "start" -> {
                         int mapX = 50;

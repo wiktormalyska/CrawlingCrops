@@ -7,11 +7,13 @@ import java.net.Socket;
 
 public class ClientHandler {
     public ClientHandler(Socket clientSocket) throws IOException {
-        in = new BufferedReader(new java.io.InputStreamReader(clientSocket.getInputStream()));
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
+        this.name = clientSocket.getInetAddress().getHostName();
+        this.in = new BufferedReader(new java.io.InputStreamReader(clientSocket.getInputStream()));
+        this.out = new PrintWriter(clientSocket.getOutputStream(), true);
     }
-    private static BufferedReader in;
-    private static PrintWriter out;
+    public String name;
+    private BufferedReader in;
+    private PrintWriter out;
     public void print(String text){
         out.print(text);
     }
