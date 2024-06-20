@@ -1,5 +1,9 @@
 # Witaj w Zagubionej Armii! 🌲🏹
 
+### Przetestuj grę przez telnet:
+#### Wpisz w terminalu/konsoli : telnet 212.182.24.241 2121
+#### Gra hostowana przez SKNI UMCS
+
 Zagubiona Armia to gra przygodowa, w której wyruszysz w emocjonującą podróż jako postać, którą sam wybierzesz!
 🧙‍♂️🧝‍♀️ Czy chcesz być potężnym Orkiem czy sprytnym Elfem, wybór należy do Ciebie! 💪🦄
 
